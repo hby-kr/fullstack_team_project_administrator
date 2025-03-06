@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: fullstack_team_project_administrator
+  profiles:
+    include: dev_db
+
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace  # ?? ??? ???? ??
+
