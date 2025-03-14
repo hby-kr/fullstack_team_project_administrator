@@ -28,7 +28,7 @@ class UsersMapperTest {
     @Order(4)
     @Test
     void findById() {
-        System.out.println(usersMapper.findById("user1"));
+        System.out.println(usersMapper.findById("user99"));
     }
 
     @Order(2)

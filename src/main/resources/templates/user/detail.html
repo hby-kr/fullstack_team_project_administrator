@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>유저 상세정보</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .back-button {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>회원 상세 정보</h1>
+
+    <table>
+        <tr>
+            <th>항목</th>
+            <th>정보</th>
+        </tr>
+        <tr>
+            <td>사용자 ID</td>
+            <td th:text="${user.userId}"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
+            <td th:text="${user.userEmail}"></td>
+        </tr>
+        <tr>
+            <td>이름</td>
+            <td th:text="${user.userName}"></td>
+        </tr>
+        <tr>
+            <td>생년월일</td>
+            <td th:text="${user.userBirth}"></td>
+        </tr>
+        <tr>
+            <td>성별</td>
+            <td>
+                <th:block th:if="${user.gender == user.Gender.M}">남성</th:block>
+                <th:block th:unless="${user.gender == user.Gender.M}">여성</th:block>
+            </td>
+        </tr>
+        <tr>
+            <td>가입일</td>
+            <td th:text = "${#temporals.format(user.userBirth, 'yy년 MM월 dd일')}" ></td>
+        </tr>
+        <tr>
+            <td>사용 여부</td>
+            <td th:text="${user.isUsed == true ? '활성화' : '비활성화'}"></td>
+        </tr>
+        <tr>
+            <td>탈퇴일</td>
+            <td th:text="${user.dropoutAt == null ?  '활동중' : #temporals.format(user.dropoutAt, 'yy년 MM월 dd일') }"></td>
+        </tr>
+    </table>
+    <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
+</div>
+
+</body>
+</html>

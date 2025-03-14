@@ -22,7 +22,11 @@ public interface UsersMapper {
 
     // 회원 삭제 (논리 삭제: is_used 값을 false로 변경)
     int delete(@Param("id") String userId);
+
+
+
 }
+
 
 
 /*

@@ -19,7 +19,6 @@
     <select id="findAll" resultMap="userMap">
       SELECT *
       FROM artu.users
-      WHERE is_used = TRUE
     </select>
 
     <!-- 특정 회원 조회 (userId로) -->

@@ -1,17 +1,14 @@
 package com.artu.fullstack_team_project_administrator.service;
 
 import com.artu.fullstack_team_project_administrator.dto.User;
-import com.artu.fullstack_team_project_administrator.mapper.UsersMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
-import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
+import java.util.List;
 
-    @Autowired
-    private UsersMapper usersMapper;
+public interface UserService {
 
+    List<User> readAll();
+    User readOne(String userId);
+    boolean register(User user);
+    boolean modify(User user);
+    boolean remove(String userId);
 }
-
-
