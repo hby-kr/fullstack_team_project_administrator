@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.UserCouponsMapper">
+  <resultMap id="BaseResultMap" type="com.artu.fullstack_team_project_administrator.dto.UserCoupons">
+    <id column="coupon_id" jdbcType="INTEGER" property="couponId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="dc_price" jdbcType="INTEGER" property="dcPrice" />
+    <result column="coupon_name" jdbcType="VARCHAR" property="couponName" />
+    <result column="coupon_details" jdbcType="VARCHAR" property="couponDetails" />
+    <result column="requirement" jdbcType="BOOLEAN" property="requirement" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    coupon_id, user_id, dc_price, coupon_name, coupon_details, requirement, end_date, 
+    is_used
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_coupons
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_coupons
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="coupon_id" keyProperty="couponId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserCoupons" useGeneratedKeys="true">
+    insert into user_coupons (user_id, dc_price, coupon_name, 
+      coupon_details, requirement, end_date, 
+      is_used)
+    values (#{userId,jdbcType=VARCHAR}, #{dcPrice,jdbcType=INTEGER}, #{couponName,jdbcType=VARCHAR}, 
+      #{couponDetails,jdbcType=VARCHAR}, #{requirement,jdbcType=BOOLEAN}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{isUsed,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" keyColumn="coupon_id" keyProperty="couponId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserCoupons" useGeneratedKeys="true">
+    insert into user_coupons
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="dcPrice != null">
+        dc_price,
+      </if>
+      <if test="couponName != null">
+        coupon_name,
+      </if>
+      <if test="couponDetails != null">
+        coupon_details,
+      </if>
+      <if test="requirement != null">
+        requirement,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="isUsed != null">
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="dcPrice != null">
+        #{dcPrice,jdbcType=INTEGER},
+      </if>
+      <if test="couponName != null">
+        #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDetails != null">
+        #{couponDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        #{requirement,jdbcType=BOOLEAN},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUsed != null">
+        #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.artu.fullstack_team_project_administrator.dto.UserCoupons">
+    update user_coupons
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="dcPrice != null">
+        dc_price = #{dcPrice,jdbcType=INTEGER},
+      </if>
+      <if test="couponName != null">
+        coupon_name = #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDetails != null">
+        coupon_details = #{couponDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        requirement = #{requirement,jdbcType=BOOLEAN},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUsed != null">
+        is_used = #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.artu.fullstack_team_project_administrator.dto.UserCoupons">
+    update user_coupons
+    set user_id = #{userId,jdbcType=VARCHAR},
+      dc_price = #{dcPrice,jdbcType=INTEGER},
+      coupon_name = #{couponName,jdbcType=VARCHAR},
+      coupon_details = #{couponDetails,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=BOOLEAN},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      is_used = #{isUsed,jdbcType=BOOLEAN}
+    where coupon_id = #{couponId,jdbcType=INTEGER}
+  </update>
+</mapper>

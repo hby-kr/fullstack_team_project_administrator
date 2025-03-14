@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.PostingCommentsMapper">
+  <resultMap id="BaseResultMap" type="com.artu.fullstack_team_project_administrator.dto.PostingComments">
+    <id column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="contents" jdbcType="VARCHAR" property="contents" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    comment_id, user_id, post_id, contents, created_at, is_used
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from posting_comments
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from posting_comments
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="comment_id" keyProperty="commentId" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments" useGeneratedKeys="true">
+    insert into posting_comments (user_id, post_id, contents, 
+      created_at, is_used)
+    values (#{userId,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, #{contents,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{isUsed,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" keyColumn="comment_id" keyProperty="commentId" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments" useGeneratedKeys="true">
+    insert into posting_comments
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="postId != null">
+        post_id,
+      </if>
+      <if test="contents != null">
+        contents,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="isUsed != null">
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="contents != null">
+        #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUsed != null">
+        #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments">
+    update posting_comments
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="contents != null">
+        contents = #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUsed != null">
+        is_used = #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments">
+    update posting_comments
+    set user_id = #{userId,jdbcType=VARCHAR},
+      post_id = #{postId,jdbcType=INTEGER},
+      contents = #{contents,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      is_used = #{isUsed,jdbcType=BOOLEAN}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+</mapper>

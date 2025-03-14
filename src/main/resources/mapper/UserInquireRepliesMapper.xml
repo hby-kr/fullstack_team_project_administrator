@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.UserInquireRepliesMapper">
+  <resultMap id="BaseResultMap" type="com.artu.fullstack_team_project_administrator.dto.UserInquireReplies">
+    <id column="reply_id" jdbcType="INTEGER" property="replyId" />
+    <result column="inquire_id" jdbcType="INTEGER" property="inquireId" />
+    <result column="reply_contents" jdbcType="VARCHAR" property="replyContents" />
+    <result column="replied_at" jdbcType="TIMESTAMP" property="repliedAt" />
+    <result column="counselor_id" jdbcType="VARCHAR" property="counselorId" />
+    <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    reply_id, inquire_id, reply_contents, replied_at, counselor_id, is_used
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_inquire_replies
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_inquire_replies
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="reply_id" keyProperty="replyId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquireReplies" useGeneratedKeys="true">
+    insert into user_inquire_replies (inquire_id, reply_contents, replied_at, 
+      counselor_id, is_used)
+    values (#{inquireId,jdbcType=INTEGER}, #{replyContents,jdbcType=VARCHAR}, #{repliedAt,jdbcType=TIMESTAMP}, 
+      #{counselorId,jdbcType=VARCHAR}, #{isUsed,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" keyColumn="reply_id" keyProperty="replyId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquireReplies" useGeneratedKeys="true">
+    insert into user_inquire_replies
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inquireId != null">
+        inquire_id,
+      </if>
+      <if test="replyContents != null">
+        reply_contents,
+      </if>
+      <if test="repliedAt != null">
+        replied_at,
+      </if>
+      <if test="counselorId != null">
+        counselor_id,
+      </if>
+      <if test="isUsed != null">
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inquireId != null">
+        #{inquireId,jdbcType=INTEGER},
+      </if>
+      <if test="replyContents != null">
+        #{replyContents,jdbcType=VARCHAR},
+      </if>
+      <if test="repliedAt != null">
+        #{repliedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="counselorId != null">
+        #{counselorId,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null">
+        #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquireReplies">
+    update user_inquire_replies
+    <set>
+      <if test="inquireId != null">
+        inquire_id = #{inquireId,jdbcType=INTEGER},
+      </if>
+      <if test="replyContents != null">
+        reply_contents = #{replyContents,jdbcType=VARCHAR},
+      </if>
+      <if test="repliedAt != null">
+        replied_at = #{repliedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="counselorId != null">
+        counselor_id = #{counselorId,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null">
+        is_used = #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquireReplies">
+    update user_inquire_replies
+    set inquire_id = #{inquireId,jdbcType=INTEGER},
+      reply_contents = #{replyContents,jdbcType=VARCHAR},
+      replied_at = #{repliedAt,jdbcType=TIMESTAMP},
+      counselor_id = #{counselorId,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=BOOLEAN}
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+</mapper>

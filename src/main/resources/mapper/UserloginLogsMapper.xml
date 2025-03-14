@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.UserloginLogsMapper">
+  <resultMap id="BaseResultMap" type="com.artu.fullstack_team_project_administrator.dto.UserloginLogs">
+    <id column="log_id" jdbcType="INTEGER" property="logId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="login_at" jdbcType="TIMESTAMP" property="loginAt" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    log_id, user_id, login_at, ip_address, user_agent, is_used
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userlogin_logs
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userlogin_logs
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="log_id" keyProperty="logId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserloginLogs" useGeneratedKeys="true">
+    insert into userlogin_logs (user_id, login_at, ip_address, 
+      user_agent, is_used)
+    values (#{userId,jdbcType=VARCHAR}, #{loginAt,jdbcType=TIMESTAMP}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{userAgent,jdbcType=VARCHAR}, #{isUsed,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" keyColumn="log_id" keyProperty="logId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserloginLogs" useGeneratedKeys="true">
+    insert into userlogin_logs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="loginAt != null">
+        login_at,
+      </if>
+      <if test="ipAddress != null">
+        ip_address,
+      </if>
+      <if test="userAgent != null">
+        user_agent,
+      </if>
+      <if test="isUsed != null">
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAt != null">
+        #{loginAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null">
+        #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.artu.fullstack_team_project_administrator.dto.UserloginLogs">
+    update userlogin_logs
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAt != null">
+        login_at = #{loginAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddress != null">
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userAgent != null">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null">
+        is_used = #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.artu.fullstack_team_project_administrator.dto.UserloginLogs">
+    update userlogin_logs
+    set user_id = #{userId,jdbcType=VARCHAR},
+      login_at = #{loginAt,jdbcType=TIMESTAMP},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=BOOLEAN}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

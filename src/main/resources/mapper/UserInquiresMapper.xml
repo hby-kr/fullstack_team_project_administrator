@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.UserInquiresMapper">
+  <resultMap id="BaseResultMap" type="com.artu.fullstack_team_project_administrator.dto.UserInquires">
+    <id column="inquire_id" jdbcType="INTEGER" property="inquireId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="inquire_category" jdbcType="OTHER" property="inquireCategory" />
+    <result column="payment_id" jdbcType="INTEGER" property="paymentId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="contents" jdbcType="VARCHAR" property="contents" />
+    <result column="inquiry_img_url" jdbcType="VARCHAR" property="inquiryImgUrl" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="inquiry_state" jdbcType="OTHER" property="inquiryState" />
+    <result column="state_updated_at" jdbcType="TIMESTAMP" property="stateUpdatedAt" />
+    <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    inquire_id, user_id, inquire_category, payment_id, title, contents, inquiry_img_url, 
+    created_at, inquiry_state, state_updated_at, is_used
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_inquires
+    where inquire_id = #{inquireId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_inquires
+    where inquire_id = #{inquireId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="inquire_id" keyProperty="inquireId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquires" useGeneratedKeys="true">
+    insert into user_inquires (user_id, inquire_category, payment_id, 
+      title, contents, inquiry_img_url, 
+      created_at, inquiry_state, state_updated_at, 
+      is_used)
+    values (#{userId,jdbcType=VARCHAR}, #{inquireCategory,jdbcType=OTHER}, #{paymentId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{contents,jdbcType=VARCHAR}, #{inquiryImgUrl,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{inquiryState,jdbcType=OTHER}, #{stateUpdatedAt,jdbcType=TIMESTAMP}, 
+      #{isUsed,jdbcType=BOOLEAN})
+  </insert>
+  <insert id="insertSelective" keyColumn="inquire_id" keyProperty="inquireId" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquires" useGeneratedKeys="true">
+    insert into user_inquires
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="inquireCategory != null">
+        inquire_category,
+      </if>
+      <if test="paymentId != null">
+        payment_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="contents != null">
+        contents,
+      </if>
+      <if test="inquiryImgUrl != null">
+        inquiry_img_url,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="inquiryState != null">
+        inquiry_state,
+      </if>
+      <if test="stateUpdatedAt != null">
+        state_updated_at,
+      </if>
+      <if test="isUsed != null">
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireCategory != null">
+        #{inquireCategory,jdbcType=OTHER},
+      </if>
+      <if test="paymentId != null">
+        #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null">
+        #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="inquiryImgUrl != null">
+        #{inquiryImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inquiryState != null">
+        #{inquiryState,jdbcType=OTHER},
+      </if>
+      <if test="stateUpdatedAt != null">
+        #{stateUpdatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUsed != null">
+        #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquires">
+    update user_inquires
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireCategory != null">
+        inquire_category = #{inquireCategory,jdbcType=OTHER},
+      </if>
+      <if test="paymentId != null">
+        payment_id = #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null">
+        contents = #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="inquiryImgUrl != null">
+        inquiry_img_url = #{inquiryImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inquiryState != null">
+        inquiry_state = #{inquiryState,jdbcType=OTHER},
+      </if>
+      <if test="stateUpdatedAt != null">
+        state_updated_at = #{stateUpdatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isUsed != null">
+        is_used = #{isUsed,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where inquire_id = #{inquireId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.artu.fullstack_team_project_administrator.dto.UserInquires">
+    update user_inquires
+    set user_id = #{userId,jdbcType=VARCHAR},
+      inquire_category = #{inquireCategory,jdbcType=OTHER},
+      payment_id = #{paymentId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      contents = #{contents,jdbcType=VARCHAR},
+      inquiry_img_url = #{inquiryImgUrl,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      inquiry_state = #{inquiryState,jdbcType=OTHER},
+      state_updated_at = #{stateUpdatedAt,jdbcType=TIMESTAMP},
+      is_used = #{isUsed,jdbcType=BOOLEAN}
+    where inquire_id = #{inquireId,jdbcType=INTEGER}
+  </update>
+</mapper>
