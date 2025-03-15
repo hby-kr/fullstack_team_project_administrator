@@ -37,6 +37,12 @@ public class UserServiceImp implements UserService {
     public boolean remove(String userId) {
         return usersMapper.delete(userId) > 0;
     }
+
+    @Override
+    public List<User> searchUser(String keyword) {
+        String searchTerm = "%" + keyword + "%";  // LIKE 검색을 위한 % 추가
+        return usersMapper.findByNameOrEmailOrId(searchTerm);
+    }
 }
 
 

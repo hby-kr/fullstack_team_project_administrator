@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -36,6 +38,17 @@ public class UserController {
         } else {
             return "redirect:/user/readAll.do"; // 추상매핑경로로 가라라고 지시하는 것
         }
+    }
+
+    @GetMapping("search.do")
+    public String searchUser(
+            @RequestParam("search") String keyword,
+            Model model
+    ) {
+        List<User> userList = userService.searchUser(keyword);
+        model.addAttribute("userList", userList);
+        return "user/searchResults";  // 결과를 표시할 뷰 페이지 (예: searchResults.html)
+
     }
 }
 

@@ -11,4 +11,7 @@ public interface UserService {
     boolean register(User user);
     boolean modify(User user);
     boolean remove(String userId);
+
+    List<User> searchUser(String keyword);
+
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+  <title>검색 결과</title>
+</head>
+
+<body>
+<h1>회원 검색 결과</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>아이디</th>
+    <th>이름</th>
+    <th>이메일</th>
+    <th>생년월일</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${userList}">
+    <td th:text="${user.userId}"></td>
+    <td th:text="${user.userName}"></td>
+    <td th:text="${user.userEmail}"></td>
+    <td th:text = "${#temporals.format(user.userBirth, 'yy년 MM월 dd일')}" ></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

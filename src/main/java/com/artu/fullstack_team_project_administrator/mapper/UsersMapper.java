@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface UsersMapper {
-    // 전체 회원 목록 조회
+    // 전체 (활성화된) 회원 목록 조회
     List<User> findAll();
 
     // 특정 회원 조회
@@ -23,8 +23,21 @@ public interface UsersMapper {
     // 회원 삭제 (논리 삭제: is_used 값을 false로 변경)
     int delete(@Param("id") String userId);
 
+    List<User> findByNameOrEmailOrId(@Param("word") String keyword);
+
+/*
+    - Id,이메일,이름을 검색해서 회원찾기
+
+추가로 만들어져야 하는 것
+    - 비활성화 회원 찾기 (신고, 차단, 휴먼계정)
+    - isUsed false로 수정
+    - isUsed true로 수정
+    - 탈퇴일에 현재 날짜 넣어서 수정하기
 
 
+
+
+*/
 }
 
 
@@ -33,7 +46,7 @@ public interface UsersMapper {
 회원전체 불러오기
 
     회원 검색
-    수정
+
     삭제 = 회원 논리삭제
 
     상세정보 조회
