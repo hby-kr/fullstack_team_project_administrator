@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface UsersMapper {
     // 전체 (활성화된) 회원 목록 조회
-    List<User> findAll();
+    List<User> findAllByIsUsed(@Param("bool") boolean bool);
 
     // 특정 회원 조회
     User findById(@Param("id") String userId);
@@ -23,7 +23,10 @@ public interface UsersMapper {
     // 회원 삭제 (논리 삭제: is_used 값을 false로 변경)
     int delete(@Param("id") String userId);
 
+    // 이름,메일,아이디로 일치한 사람 찾기
     List<User> findByNameOrEmailOrId(@Param("word") String keyword);
+
+
 
 /*
     - Id,이메일,이름을 검색해서 회원찾기

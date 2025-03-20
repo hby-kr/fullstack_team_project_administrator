@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> readAll();
+    List<User> findActiveUsers();
+    List<User> findInactiveUsers();
+
     User readOne(String userId);
     boolean register(User user);
     boolean modify(User user);

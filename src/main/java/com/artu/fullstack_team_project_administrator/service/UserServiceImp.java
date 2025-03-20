@@ -13,9 +13,15 @@ public class UserServiceImp implements UserService {
     @Autowired
     private UsersMapper usersMapper;
 
+
     @Override
-    public List<User> readAll() {
-        return usersMapper.findAll();
+    public List<User> findActiveUsers() {
+        return usersMapper.findAllByIsUsed(true);
+    }
+
+    @Override
+    public List<User> findInactiveUsers() {
+        return usersMapper.findAllByIsUsed(false);
     }
 
     @Override

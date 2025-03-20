@@ -10,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UsersMapperTest {
@@ -21,8 +19,8 @@ class UsersMapperTest {
 
     @Order(1)
     @Test
-    void findAll() {
-        System.out.println(usersMapper.findAll());
+    void findAllByIsUsed() {
+        System.out.println(usersMapper.findAllByIsUsed(true));
     }
 
     @Order(4)

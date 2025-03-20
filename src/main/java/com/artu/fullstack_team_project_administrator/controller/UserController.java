@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -20,10 +19,16 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/readAll.do")
+    @GetMapping("/readActiveUsers.do")
     public String readAll(Model model) {
-        model.addAttribute("users", userService.readAll());
-        return "user/readAll";
+        model.addAttribute("users", userService.findActiveUsers());
+        return "user/readActiveUsers";
+    }
+
+    @GetMapping("/readInactiveUsers.do")
+    public String readNotUsedUser(Model model) {
+        model.addAttribute("users", userService.findInactiveUsers());
+        return "user/readInactiveUsers";
     }
 
     @GetMapping("/{userId}/detail.do")
