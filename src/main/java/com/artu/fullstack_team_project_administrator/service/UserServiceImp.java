@@ -4,6 +4,7 @@ import com.artu.fullstack_team_project_administrator.dto.User;
 import com.artu.fullstack_team_project_administrator.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,6 +49,12 @@ public class UserServiceImp implements UserService {
     public List<User> searchUser(String keyword) {
         String searchTerm = "%" + keyword + "%";  // LIKE 검색을 위한 % 추가
         return usersMapper.findByNameOrEmailOrId(searchTerm);
+    }
+
+    @Override
+    @Transactional
+    public boolean inactivateUser(User user) {
+        return usersMapper.updateToInactivateUser(user) >0 ;
     }
 }
 

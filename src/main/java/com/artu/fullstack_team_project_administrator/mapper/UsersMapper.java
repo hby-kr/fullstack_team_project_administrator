@@ -26,6 +26,9 @@ public interface UsersMapper {
     // 이름,메일,아이디로 일치한 사람 찾기
     List<User> findByNameOrEmailOrId(@Param("word") String keyword);
 
+    // 회원 비활성화 하기
+    int updateToInactivateUser(User user);
+
 
 
 /*

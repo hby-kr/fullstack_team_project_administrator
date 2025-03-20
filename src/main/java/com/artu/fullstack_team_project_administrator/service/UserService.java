@@ -16,4 +16,5 @@ public interface UserService {
 
     List<User> searchUser(String keyword);
 
+    boolean inactivateUser(User user);
 }

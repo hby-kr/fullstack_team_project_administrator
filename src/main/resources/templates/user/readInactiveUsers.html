@@ -92,7 +92,7 @@
 </form>
 
 <div class="container">
-    <h1>사용자 리스트</h1>
+    <h1>비활성 사용자 리스트</h1>
     <table>
         <thead>
         <tr>
@@ -101,7 +101,8 @@
             <th>이름</th>
             <th>생년월일</th>
             <th>성별</th>
-            <th>사용 여부</th>
+            <th>활성화 여부</th>
+            <th>활성화 사유</th>
             <th>탈퇴일</th>
             <th>상세</th>
         </tr>
@@ -118,6 +119,7 @@
                 <th:block th:unless="${user.gender == user.Gender.M}"> 여성</th:block>
             </td>
             <td th:text="${user.isUsed == true ? '활성화' : '비활성화'}"></td>
+            <td th:text = "${user.memo}"></td>
             <td th:text="${user.dropoutAt == null ?  '활동중' : #temporals.format(user.dropoutAt, 'yy년 MM월 dd일') }"></td>
             <td><a th:href="@{'/user/{userId}/detail.do'(userId=${user.userId})}">상세보기</a></td>
         </tr>

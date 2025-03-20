@@ -13,6 +13,7 @@
     <th>이름</th>
     <th>이메일</th>
     <th>생년월일</th>
+    <th>상세</th>
 
   </tr>
   </thead>
@@ -22,6 +23,7 @@
     <td th:text="${user.userName}"></td>
     <td th:text="${user.userEmail}"></td>
     <td th:text = "${#temporals.format(user.userBirth, 'yy년 MM월 dd일')}" ></td>
+    <td><a th:href="@{'/user/{userId}/detail.do'(userId=${user.userId})}">상세보기</a></td>
   </tr>
   </tbody>
 </table>

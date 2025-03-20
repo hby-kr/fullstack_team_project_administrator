@@ -20,5 +20,6 @@ public class User implements Serializable {
     private LocalDate createdAt;
     private Boolean isUsed;
     private LocalDate dropoutAt;
+    private String memo;
 
 }
