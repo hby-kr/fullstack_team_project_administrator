@@ -101,8 +101,8 @@
             <th>이름</th>
             <th>생년월일</th>
             <th>성별</th>
-            <th>사용 여부</th>
-            <th>탈퇴일</th>
+<!--            <th>사용 여부</th>-->
+            <!-- <th>탈퇴일</th>  활성화된 회원이므로 탈퇴일 필요 없음-->
             <th>상세</th>
         </tr>
         </thead>
@@ -117,8 +117,8 @@
                 <th:block th:if="${user.gender == user.Gender.M}"> 남성</th:block>
                 <th:block th:unless="${user.gender == user.Gender.M}"> 여성</th:block>
             </td>
-            <td th:text="${user.isUsed == true ? '활성화' : '비활성화'}"></td>
-            <td th:text="${user.dropoutAt == null ?  '활동중' : #temporals.format(user.dropoutAt, 'yy년 MM월 dd일') }"></td>
+<!--            <td th:text="${user.isUsed == true ? '활성화' : '비활성화'}"></td>-->
+<!--            <td th:text="${user.dropoutAt == null ?  '활동중' : #temporals.format(user.dropoutAt, 'yy년 MM월 dd일') }"></td>-->
             <td><a th:href="@{'/user/{userId}/detail.do'(userId=${user.userId})}">상세보기</a></td>
         </tr>
         </tbody>

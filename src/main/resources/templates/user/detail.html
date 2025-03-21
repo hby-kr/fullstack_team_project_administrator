@@ -167,8 +167,8 @@
 
     </p>
 
-    <div id="modifyMemoContainer" class="disabled">
-        <form th:action="@{/user/{userId}/detail.do(userId=${user.userId})}" method="post">
+    <div id="inactivationContainer" class="disabled">
+        <form th:action="@{/user/{userId}/inactiveUser.do(userId=${user.userId})}" method="post">
             <p><label>관리자 이름<input type="text" name="adminName" required></label></p>
             <p><label>비활성화 사유<input type="text" name="memo" th:value="${user.memo}" required></label></p>
             <p>
@@ -176,14 +176,34 @@
             </p>
         </form>
     </div>
+    <div id="activationContainer" class="disabled">
+        <form th:action="@{/user/{userId}/activateUser.do(userId=${user.userId})}" method="post">
+            <p><label>관리자 이름<input type="text" name="adminName" required></label></p>
+            <p><label>활성화 사유<input type="text" name="memo" th:value="${user.memo}" required></label></p>
+            <p>
+                <button type="submit">활성화 하기</button>
+            </p>
+        </form>
+    </div>
 </div>
 
 <script>
     let showInactivationForm = document.getElementById('showInactivationForm');
-    let modifyMemoContainer = document.getElementById('modifyMemoContainer');
-    showInactivationForm.onclick = function () {
-        modifyMemoContainer.classList.toggle('disabled');
+    let showActivationForm = document.getElementById('showActivationForm');
+    let inactivationContainer = document.getElementById('inactivationContainer');
+    let activationContainer = document.getElementById('activationContainer');
+
+    if (showInactivationForm) {
+        showInactivationForm.onclick = function () {
+            inactivationContainer.classList.toggle('disabled');
+        };
     }
+    if (showActivationForm) {
+        showActivationForm.onclick = function () {
+            activationContainer.classList.toggle('disabled');
+        };
+    }
+
 </script>
 
 

@@ -53,7 +53,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Transactional
-    public boolean inactivateUser(User user) {
+    public boolean modifyIsUsed(User user) {
         return usersMapper.updateToInactivateUser(user) >0 ;
     }
 }

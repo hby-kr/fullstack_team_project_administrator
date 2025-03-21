@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -42,7 +43,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/{userId}/detail.do")
+    @PostMapping("/{userId}/inactiveUser.do")
     public String inactiveUser(
             @PathVariable String userId,
             @ModelAttribute("adminName") String adminName,
@@ -53,16 +54,40 @@ public class UserController {
         if (!user.getIsUsed()){
             return "redirect:/user/readInactiveUsers.do";
         }
-
         user.setIsUsed(false);
         user.setMemo(memo + " by." + adminName);
-        boolean inactive = userService.inactivateUser(user);
+        boolean inactive = userService.modifyIsUsed(user);
         if (inactive == true) {
             return "redirect:/user/readInactiveUsers.do";
         } else {
-            return "redirect:/user//{userId}/detail.do";
+            return "redirect:/user/{userId}/inactiveUser.do";
         }
     }
+
+    @PostMapping("/{userId}/activateUser.do")
+    public String activeUser(
+            @PathVariable String userId,
+            @ModelAttribute("adminName") String adminName,
+            @ModelAttribute("memo") String memo
+    ) {
+        User user = userService.readOne(userId);
+        System.out.println(user);
+        if (user.getIsUsed()){
+            return "redirect:/user/readInactiveUsers.do";
+        }
+        user.setIsUsed(true);
+        user.setMemo(memo + " :활성화 처리 by." + adminName);
+        user.setDropoutAt(null);
+        System.out.println(user);
+        boolean active = userService.modifyIsUsed(user);
+
+        if (active == true) {
+            return "redirect:/user/readActiveUsers.do";
+        } else {
+            return "redirect:/user/{userId}/detail.do";
+        }
+    }
+
 
 
     @GetMapping("search.do")
