@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.EventMapper">
+
+    <resultMap id="eventMap" type="com.artu.fullstack_team_project_administrator.dto.Event">
+        <id column="event_id" property="eventId"/>
+        <result column="ctgr_id" property="ctgrId"/>
+        <result column="title" property="title"/>
+        <result column="location" property="location"/>
+        <result column="company" property="company"/>
+        <result column="address" property="address"/>
+        <result column="age_limit" property="ageLimit"/>
+        <result column="how_long" property="howLong"/>
+        <result column="is_approved" property="isApproved"/>
+        <result column="is_used" property="isUsed"/>
+        <result column="memo" property="memo"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="findAllByEventId" resultMap="eventMap">
+        SELECT *
+        FROM artu.events
+        WHERE event_id = #{id};
+    </select>
+
+    <select id="findById" resultMap="eventMap">
+        SELECT *
+        FROM artu.events
+        WHERE event_id = #{id};
+    </select>
+
+    <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        INSERT INTO events (event_id, ctgr_id, title, location, company, address, age_limit,how_long)
+        VALUES (#{eventId}, #{ctgrId}, #{title}, #{location}, #{company}, #{address}, #{ageLimit}, #{howLong})
+    </insert>
+    
+    <update id="update" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        UPDATE events
+        SET ctgr_id = #{ctgrId},
+            title = #{title},
+            location = #{location},
+            company = #{company},
+            address = #{address},
+            age_limit = #{ageLimit},
+            how_long = #{howLong},
+            is_approved = #{isApproved},
+            is_used = #{isUsed},
+            memo = #{memo},
+            user_id = #{userId}
+        WHERE event_id = #{event_id}
+    </update>
+    
+    <update id="updateToInactivateEvent" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        UPDATE events
+        SET is_used = #{isUsed},
+            memo = #{memo}
+        WHERE event_id = #{eventId}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM events
+        WHERE event_id = #{id}
+    </delete>
+</mapper>

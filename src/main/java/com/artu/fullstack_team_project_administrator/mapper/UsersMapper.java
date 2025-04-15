@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+//JPA repository
 @Mapper
 public interface UsersMapper {
     // 전체 (활성화된) 회원 목록 조회
