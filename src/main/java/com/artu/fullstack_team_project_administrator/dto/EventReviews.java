@@ -1,12 +1,18 @@
 package com.artu.fullstack_team_project_administrator.dto;
 
+import lombok.Data;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
  * event_reviews
  */
+@Data
 public class EventReviews implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer reviewId;
 
     private String userId;
@@ -19,9 +25,8 @@ public class EventReviews implements Serializable {
 
     private Boolean isUsed;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private static final long serialVersionUID = 1L;
 
     public Integer getReviewId() {
         return reviewId;
@@ -71,11 +76,11 @@ public class EventReviews implements Serializable {
         this.isUsed = isUsed;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 }
