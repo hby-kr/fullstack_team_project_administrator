@@ -9,9 +9,11 @@
     <result column="contents" jdbcType="VARCHAR" property="contents" />
     <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
+    <result column="deleted_reason" jdbcType="VARCHAR" property="deletedReason" />
   </resultMap>
   <sql id="Base_Column_List">
-    review_id, user_id, event_id, rate, contents, is_used, created_at
+    review_id, user_id, event_id, rate, contents, is_used, created_at, deleted_at, deleted_reason
   </sql>
   <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.EventReviews">
     insert into event_reviews (review_id, user_id, event_id, rate, contents, created_at)
@@ -60,6 +62,12 @@
       </if>
       <if test="createdAt != null">
         created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletedReason != null">
+        deleted_reason = #{deletedReason,jdbcType=VARCHAR},
+      </if>
+      <if test="deletedAt != null">
+        deleted_reason = #{deletedReason,jdbcType=VARCHAR},
       </if>
     </set>
     where review_id = #{reviewId,jdbcType=INTEGER}
