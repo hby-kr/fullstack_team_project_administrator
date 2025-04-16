@@ -2,23 +2,27 @@ package com.artu.fullstack_team_project_administrator.mapper;
 
 import com.artu.fullstack_team_project_administrator.dto.Event;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 @Mapper
 public interface EventMapper {
-    List<Event> findAllByEventId(@Param("id") Integer eventId);
 
-    Event findById(@Param("id") Integer eventId);
+    List<Event> findUnapprovedEvents();
 
-    int insert(Event event);
+    List<Event> findApprovedEvents();
 
-    int update(Event event);
+    List<Event> findActiveEvents();
 
-    int delete(@Param("id") Integer eventId);
+    List<Event> findInactiveEvents();
 
-    int updateToInactivateEvent(Event event);
+    int updateToInactivateEvents(Event event);
+
+    int updateToActivateEvents(Event event);
+
+
+
+
 
 
 }

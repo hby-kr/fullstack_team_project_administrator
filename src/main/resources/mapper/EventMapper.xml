@@ -3,7 +3,7 @@
 
 <mapper namespace="com.artu.fullstack_team_project_administrator.mapper.EventMapper">
 
-    <resultMap id="eventMap" type="com.artu.fullstack_team_project_administrator.dto.Event">
+    <resultMap id="EventMap" type="com.artu.fullstack_team_project_administrator.dto.Event">
         <id column="event_id" property="eventId"/>
         <result column="ctgr_id" property="ctgrId"/>
         <result column="title" property="title"/>
@@ -18,49 +18,42 @@
         <result column="user_id" property="userId"/>
     </resultMap>
 
-    <select id="findAllByEventId" resultMap="eventMap">
+    <select id="findUnapprovedEvents" resultMap="EventMap">
         SELECT *
         FROM artu.events
-        WHERE event_id = #{id};
+        WHERE is_approved = #{bool}
     </select>
 
-    <select id="findById" resultMap="eventMap">
+    <select id="findApprovedEvents" resultMap="EventMap">
         SELECT *
         FROM artu.events
-        WHERE event_id = #{id};
+        WHERE is_approved = #{bool}
     </select>
 
-    <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
-        INSERT INTO events (event_id, ctgr_id, title, location, company, address, age_limit,how_long)
-        VALUES (#{eventId}, #{ctgrId}, #{title}, #{location}, #{company}, #{address}, #{ageLimit}, #{howLong})
-    </insert>
-    
-    <update id="update" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
-        UPDATE events
-        SET ctgr_id = #{ctgrId},
-            title = #{title},
-            location = #{location},
-            company = #{company},
-            address = #{address},
-            age_limit = #{ageLimit},
-            how_long = #{howLong},
-            is_approved = #{isApproved},
-            is_used = #{isUsed},
-            memo = #{memo},
-            user_id = #{userId}
-        WHERE event_id = #{event_id}
-    </update>
-    
-    <update id="updateToInactivateEvent" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+    <select id="findActiveEvents" resultMap="EventMap">
+        SELECT *
+        FROM artu.events
+        WHERE is_used = #{bool}
+    </select>
+
+    <select id="findInactiveEvents" resultMap="EventMap">
+        SELECT *
+        FROM artu.events
+        WHERE is_used = #{bool}
+    </select>
+
+    <update id="updateToInactivateEvents" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
         UPDATE events
         SET is_used = #{isUsed},
             memo = #{memo}
         WHERE event_id = #{eventId}
     </update>
 
-    <delete id="delete" parameterType="Integer">
-        DELETE
-        FROM events
-        WHERE event_id = #{id}
-    </delete>
+    <update id="updateToActivateEvents" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        UPDATE events
+        SET is_used = #{isUsed},
+            memo = #{memo}
+        WHERE event_id = #{eventId}
+    </update>
+
 </mapper>

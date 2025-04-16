@@ -16,43 +16,57 @@ class EventMapperTest {
     @Autowired
     EventMapper eventMapper;
 
-    @Test
     @Order(1)
-    void findAllByEventId() {
-        System.out.println(eventMapper.findAllByEventId(1));
+    @Test
+    void findUnapprovedEvents() {
+        System.out.println(eventMapper.findUnapprovedEvents());
     }
 
-    @Test
-    @Order(5)
-    void findById() {
-        System.out.println(eventMapper.findById(1));
-    }
-
-    @Test
     @Order(2)
-    void insert() {
+    @Test
+    void findApprovedEvents() {
+        System.out.println(eventMapper.findApprovedEvents());
+    }
+
+    @Order(3)
+    @Test
+    void findActiveEvents() {
+        System.out.println(eventMapper.findActiveEvents());
+    }
+
+    @Order(4)
+    @Test
+    void findInactiveEvents() {
+        System.out.println(eventMapper.findInactiveEvents());
+    }
+
+    @Order(5)
+    @Test
+    void updateToInactivateEvents() {
         Event event = new Event();
-        event.setEventId(70);
-        event.setCtgrId(6);
-        event.setTitle("포크 뮤지컬");
-        event.setLocation("대전");
-        event.setCompany("포크 그룹");
-        event.setAddress("대전 중구 대종로 373");
+        event.setEventId(1);
+        event.setCtgrId(1);
+        event.setTitle("음악 콘서트");
+        event.setLocation("서울");
+        event.setCompany("음악사");
+        event.setAddress("서울 강남구 테헤란로 123");
         event.setAgeLimit("12");
         event.setHowLong(120);
-        event.setUserId("user1041");
-
-
-
+        event.setUserId("user1001");
     }
 
+    @Order(6)
     @Test
-    @Order(3)
-    void update() {
-    }
-
-    @Test
-    @Order(4)
-    void delete() {
+    void updateToActivateEvents() {
+        Event event = new Event();
+        event.setEventId(1);
+        event.setCtgrId(1);
+        event.setTitle("음악 콘서트");
+        event.setLocation("서울");
+        event.setCompany("음악사");
+        event.setAddress("서울 강남구 테헤란로 123");
+        event.setAgeLimit("12");
+        event.setHowLong(120);
+        event.setUserId("user1001");
     }
 }
