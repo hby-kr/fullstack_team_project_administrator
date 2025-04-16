@@ -15,7 +15,7 @@ public interface EventReviewsMapper {
     // 공연리뷰 userId로 조회
     List<EventReviews> findReviewsById(@Param("userId") String userId);
     // 공연리뷰 삭제 (논리 삭제 : is_used false 로 변경)
-    int delete(@Param("id")Integer reviewId);
+    int delete(@Param("reviewId")Integer reviewId);
     // 공연리뷰 reviewId로 조회
     EventReviews selectByPrimaryKey(Integer reviewId);
 

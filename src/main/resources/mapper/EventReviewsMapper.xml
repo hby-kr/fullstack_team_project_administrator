@@ -15,7 +15,7 @@
   </sql>
   <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.EventReviews">
     insert into event_reviews (review_id, user_id, event_id, rate, contents, created_at)
-    VALUES (#{reviewId}, #{eventId}, #{userId}, #{rate}, #{contents}, #{createdAt})
+    VALUES (#{reviewId},  #{userId}, #{eventId}, #{rate}, #{contents}, #{createdAt})
   </insert>
   <!-- is_used 를 변수로 받아 공연리뷰 목록 조회 -->
   <select id="findAllByIsUsed" resultType="com.artu.fullstack_team_project_administrator.dto.EventReviews" parameterType="boolean" resultMap="BaseResultMap">
