@@ -21,25 +21,25 @@
     <select id="findUnapprovedEvents" resultMap="EventMap">
         SELECT *
         FROM artu.events
-        WHERE is_approved = #{bool}
+        WHERE is_approved = false
     </select>
 
     <select id="findApprovedEvents" resultMap="EventMap">
         SELECT *
         FROM artu.events
-        WHERE is_approved = #{bool}
+        WHERE is_approved = true
     </select>
 
     <select id="findActiveEvents" resultMap="EventMap">
         SELECT *
         FROM artu.events
-        WHERE is_used = #{bool}
+        WHERE is_used = true
     </select>
 
     <select id="findInactiveEvents" resultMap="EventMap">
         SELECT *
         FROM artu.events
-        WHERE is_used = #{bool}
+        WHERE is_used = false
     </select>
 
     <update id="updateToInactivateEvents" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
