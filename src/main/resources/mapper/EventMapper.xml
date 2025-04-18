@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.EventMapper">
+
+    <resultMap id="EventMap" type="com.artu.fullstack_team_project_administrator.dto.Event">
+        <id column="event_id" property="eventId"/>
+        <result column="ctgr_id" property="ctgrId"/>
+        <result column="title" property="title"/>
+        <result column="location" property="location"/>
+        <result column="company" property="company"/>
+        <result column="address" property="address"/>
+        <result column="age_limit" property="ageLimit"/>
+        <result column="how_long" property="howLong"/>
+        <result column="is_approved" property="isApproved"/>
+        <result column="is_used" property="isUsed"/>
+        <result column="memo" property="memo"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="findUnapprovedEvents" resultMap="EventMap">
+        SELECT *
+        FROM artu.events
+        WHERE is_approved = false
+    </select>
+
+    <select id="findApprovedEvents" resultMap="EventMap">
+        SELECT *
+        FROM artu.events
+        WHERE is_approved = true
+    </select>
+
+    <select id="findActiveEvents" resultMap="EventMap">
+        SELECT *
+        FROM artu.events
+        WHERE is_used = true
+    </select>
+
+    <select id="findInactiveEvents" resultMap="EventMap">
+        SELECT *
+        FROM artu.events
+        WHERE is_used = false
+    </select>
+
+    <update id="updateToInactivateEvents" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        UPDATE events
+        SET is_used = #{isUsed},
+            memo = #{memo}
+        WHERE event_id = #{eventId}
+    </update>
+
+    <update id="updateToActivateEvents" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        UPDATE events
+        SET is_used = #{isUsed},
+            memo = #{memo}
+        WHERE event_id = #{eventId}
+    </update>
+
+</mapper>
