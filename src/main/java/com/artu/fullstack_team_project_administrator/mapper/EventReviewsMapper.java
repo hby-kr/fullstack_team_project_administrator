@@ -24,4 +24,10 @@ public interface EventReviewsMapper {
 
     // 공연리뷰 삽입 (공연리뷰 삭제를 위해 / 실제 사용 X)
     int insert(EventReviews record);
+
+    //신고된 리뷰만 가져오기
+    List<EventReviews> findReportedReviews();
+
+    // 공연리뷰 공연ID랑 사용자ID로 조회
+    List<EventReviews> findByEventIdAndUserId(@Param("eventId") Integer eventId, @Param("userId") String userId);
 }

@@ -18,6 +18,10 @@ public interface EventReviewService {
 
     // 공연리뷰 isUsed = false 로 변경 (논리 삭제)
     boolean deactivateReview(Integer reviewId);
-    
-    
+
+    // 신고된 공연리뷰 불러오기
+    List<EventReviews> findReprotedReviews();
+
+    // 공연리뷰 공연ID랑 사용자ID로 불러오기
+    List<EventReviews> findByEventIdAndUserId(@Param("eventId") Integer eventId, @Param("userId") String userId);
 }

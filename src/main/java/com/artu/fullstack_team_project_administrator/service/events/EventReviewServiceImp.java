@@ -39,4 +39,14 @@ public class EventReviewServiceImp implements EventReviewService {
         return eventReviewsMapper.updateByPrimaryKeySelective(eventReviews) > 0;
     }
 
+    @Override
+    public List<EventReviews> findReprotedReviews() {
+        return eventReviewsMapper.findReportedReviews();
+    }
+
+    @Override
+    public List<EventReviews> findByEventIdAndUserId(Integer eventId, String userId) {
+        return eventReviewsMapper.findByEventIdAndUserId(eventId, userId);
+    }
+
 }

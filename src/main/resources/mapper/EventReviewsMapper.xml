@@ -8,12 +8,15 @@
     <result column="rate" jdbcType="INTEGER" property="rate" />
     <result column="contents" jdbcType="VARCHAR" property="contents" />
     <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+    <result column="is_reported" jdbcType="BOOLEAN" property="isReported" />
+    <result column="report_reason" jdbcType="VARCHAR" property="reportReason" />
+    <result column="reported_at" jdbcType="TIMESTAMP" property="reportedAt" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
     <result column="deleted_reason" jdbcType="VARCHAR" property="deletedReason" />
   </resultMap>
   <sql id="Base_Column_List">
-    review_id, user_id, event_id, rate, contents, is_used, created_at, deleted_at, deleted_reason
+    review_id, user_id, event_id, rate, contents, is_used, is_reported, report_reason, reported_at, created_at, deleted_at, deleted_reason
   </sql>
   <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.EventReviews">
     insert into event_reviews (review_id, user_id, event_id, rate, contents, created_at)
@@ -37,6 +40,22 @@
     <include refid="Base_Column_List" />
     from event_reviews
     where review_id = #{reviewId,jdbcType=INTEGER}
+  </select>
+  <select id="findReportedReviews" resultType="com.artu.fullstack_team_project_administrator.dto.EventReviews" resultMap="BaseResultMap">
+    SELECT * FROM event_reviews
+    WHERE is_reported = true
+    ORDER BY reported_at DESC
+  </select>
+<!-- event_id 랑 user_id 를 변수로 리뷰 찾기 -->
+  <select id="findByEventIdAndUserId" resultType="com.artu.fullstack_team_project_administrator.dto.EventReviews" resultMap="BaseResultMap">
+    SELECT * FROM event_reviews
+    WHERE 1=1
+    <if test="eventId !=null">
+      AND event_id=#{eventId}
+    </if>
+    <if test="userId !=null and userId != ''">
+      AND user_id=#{userId}
+    </if>
   </select>
   <delete id="delete" parameterType="java.lang.Integer">
     delete from event_reviews

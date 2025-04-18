@@ -52,4 +52,12 @@ class EventReviewsMapperTest {
         eventReviews.setCreatedAt(LocalDate.parse("2025-03-01"));
         System.out.println(eventReviewsMapper.insert(eventReviews));
     }
+
+    @Test
+    void findByEventIdAndUserId() {
+        EventReviews eventReviews = new EventReviews();
+        eventReviews.setEventId(1);
+        eventReviews.setUserId("user1006");
+        System.out.println(eventReviewsMapper.findByEventIdAndUserId(eventReviews.getEventId(), eventReviews.getUserId()));
+    }
 }
