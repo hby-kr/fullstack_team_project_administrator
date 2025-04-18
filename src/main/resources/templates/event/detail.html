@@ -109,6 +109,28 @@
       display: none;
     }
 
+    .approve-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .approve-button:hover {
+      background-color: #444; /* 버튼에 마우스를 올리면 배경색 변경 */
+      cursor: pointer;
+    }
+
+    .disabled {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
@@ -128,44 +150,45 @@
       <td th:text="${event.eventId}"></td>
     </tr>
     <tr>
-      <td>이메일</td>
+      <td>카테고리 ID</td>
       <td th:text="${event.ctgrId}"></td>
     </tr>
     <tr>
-      <td>이름</td>
+      <td>제목</td>
       <td th:text="${event.title}"></td>
     </tr>
     <tr>
-      <td>생년월일</td>
+      <td>지역</td>
       <td th:text="${event.location}"></td>
     </tr>
     <tr>
-      <td>성별</td>
+      <td>주최사</td>
       <td th:text="${event.company}"></td>
     </tr>
     <tr>
-      <td>가입일</td>
+      <td>주소</td>
       <td th:text="${event.address}"></td>
     </tr>
     <tr>
-      <td>사용 여부</td>
+      <td>관람 등급</td>
       <td th:text="${event.ageLimit}"></td>
     </tr>
     <tr>
-      <td>탈퇴일</td>
+      <td>관람 시간</td>
       <td th:text="${event.howLong}"></td>
     </tr>
     <tr>
       <td>메모 (or 비활성화 사유)</td>
-      <td th:text="${user.memo}"></td>
+      <td th:text="${event.memo}"></td>
     </tr>
   </table>
   <p>
     <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
-    <th:block th:if="${user.isUsed == true}">
+    <a href="javascript:history.back()" class="approve-button">승인</a>
+    <th:block th:if="${event.isUsed == true}">
       <button id="showInactivationForm">비활성화 설정</button>
     </th:block>
-    <th:block th:if="${user.isUsed == false}">
+    <th:block th:if="${event.isUsed == false}">
       <button id="showActivationForm">활성화 설정</button>
     </th:block>
 
@@ -173,23 +196,24 @@
   </p>
 
   <div id="inactivationContainer" class="disabled">
-    <form th:action="@{/user/{userId}/inactiveUser.do(userId=${user.userId})}" method="post">
+    <form th:action="@{/event/{eventId}/inactiveEvent.do(EventId=${event.eventId})}" method="post">
       <p><label>관리자 이름<input type="text" name="adminName" required></label></p>
-      <p><label>비활성화 사유<input type="text" name="memo" th:value="${user.memo}" required></label></p>
+      <p><label>비활성화 사유<input type="text" name="memo" th:value="${event.memo}" required></label></p>
       <p>
         <button type="submit">비활성화 하기</button>
       </p>
     </form>
   </div>
   <div id="activationContainer" class="disabled">
-    <form th:action="@{/user/{userId}/activateUser.do(userId=${user.userId})}" method="post">
+    <form th:action="@{/event/{eventId}/activateEvent.do(eventId=${event.eventId})}" method="post">
       <p><label>관리자 이름<input type="text" name="adminName" required></label></p>
-      <p><label>활성화 사유<input type="text" name="memo" th:value="${user.memo}" required></label></p>
+      <p><label>활성화 사유<input type="text" name="memo" th:value="${event.memo}" required></label></p>
       <p>
         <button type="submit">활성화 하기</button>
       </p>
     </form>
   </div>
+
 </div>
 </body>
 </html>

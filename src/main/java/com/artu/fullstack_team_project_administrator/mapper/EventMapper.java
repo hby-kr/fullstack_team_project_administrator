@@ -21,7 +21,7 @@ public interface EventMapper {
     int updateToActivateEvents(Event event);
 
 
-
+    Event findEventById(int id);
 
 
 

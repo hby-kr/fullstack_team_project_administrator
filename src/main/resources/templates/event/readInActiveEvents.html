@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>이벤트 페이지</title>
+    <title>관리자 페이지</title>
   <link rel="stylesheet" href="/styles.css">
   <style>
     body {
@@ -82,18 +82,15 @@
       background-color: #444;  /* 헤더에 마우스를 올리면 배경색 변경 */
       color: #e0e0e0;  /* 텍스트 색상 변경 */
     }
-  td,th{
-    white-space: nowrap;
-  }
+
   </style>
 </head>
 <body>
 
-
 <div th:replace="~{fragments/aside :: sidebar}"></div>
 
 <div class="container">
-  <h1>승인 대기 이벤트 리스트</h1>
+  <h1>비활성화 이벤트 리스트</h1>
   <table>
     <thead>
     <tr>
@@ -105,13 +102,12 @@
       <th>주소</th>
       <th>관람등급</th>
       <th>관람시간</th>
-      <th>승인 여부</th>
       <th>상세보기</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="event : ${unapprovedEvents}">
+    <tr th:each="event : ${InactiveEvent}">
       <td th:text = "${event.eventId}"></td>
       <td th:text = "${event.ctgrId}"></td>
       <td th:text = "${event.title}"></td>
@@ -120,7 +116,6 @@
       <td th:text="${event.address}"></td>
       <td th:text = "${event.ageLimit}"></td>
       <td th:text="${event.howLong}"></td>
-      <td th:text="${event.isApproved == true ? '' : '승인대기'}"></td>
       <td><a th:href="@{'/event/{eventId}/detail.do'(eventId=${event.eventId})}">상세보기</a></td>
     </tr>
     </tbody>
@@ -128,4 +123,3 @@
 </div>
 </body>
 </html>
-

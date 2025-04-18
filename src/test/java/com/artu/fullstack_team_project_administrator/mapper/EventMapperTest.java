@@ -69,4 +69,9 @@ class EventMapperTest {
         event.setHowLong(120);
         event.setUserId("user1001");
     }
+
+    @Test
+    void findEventById() {
+        System.out.println(eventMapper.findEventById(1));
+    }
 }
