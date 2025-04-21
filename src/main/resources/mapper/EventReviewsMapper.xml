@@ -41,6 +41,7 @@
     from event_reviews
     where review_id = #{reviewId,jdbcType=INTEGER}
   </select>
+<!-- 신고 받은 review -->
   <select id="findReportedReviews" resultType="com.artu.fullstack_team_project_administrator.dto.EventReviews" resultMap="BaseResultMap">
     SELECT * FROM event_reviews
     WHERE is_reported = true
