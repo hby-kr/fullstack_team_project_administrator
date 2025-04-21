@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>관리자 페이지</title>
   <link rel="stylesheet" href="/styles.css">
   <style>
     body {
@@ -86,11 +86,16 @@
   </style>
 </head>
 <body>
+<div th:replace="~{fragments/aside :: sidebar}"></div>
+<div class="container">
+  <h1>신고된 공연리뷰 리스트</h1>
   <table>
     <thead>
       <tr>
+        <th>작성일</th>
         <th>리뷰 ID</th>
         <th>사용자 ID</th>
+        <th>공연 ID</th>
         <th>리뷰 내용</th>
         <th>신고 사유</th>
         <th>신고 날짜</th>
@@ -99,6 +104,7 @@
     </thead>
     <tbody>
       <tr th:each="review : ${reportedReviews}">
+        <td th:text="${#temporals.format(review.createdAt,'yy년 MM월 dd일')}"></td>
         <td th:text="${review.reviewId}"></td>
         <td th:text="${review.userId}"></td>
         <td th:text="${review.contents}"></td>
@@ -114,6 +120,6 @@
     </tbody>
     
   </table>
-
+</div>
 </body>
 </html>

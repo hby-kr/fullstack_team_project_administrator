@@ -37,6 +37,11 @@ public class EventReviewController {
         model.addAttribute("reportedReview", eventReviewService.findReprotedReviews());
         return "review/reported_reviews";
     }
+    @GetMapping("/deactivate")
+    public String deactivateReviews(Model model) {
+        model.addAttribute("reviews", eventReviewService.findInactiveReviews());
+        return "review/deactivated_reviews";
+    }
 
     @PostMapping("/reviews/deactivate")
     public String deactivateReview(@RequestParam("reviewId") Integer reviewId){
