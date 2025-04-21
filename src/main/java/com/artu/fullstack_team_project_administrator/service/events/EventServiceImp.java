@@ -35,6 +35,11 @@ public class EventServiceImp implements EventService {
     }
 
     @Override
+    public Event detail(int eventId) {
+        return eventMapper.findEventById(eventId);
+    }
+
+    @Override
     @Transactional
     public boolean modifyInactivate(Event event) {
         int update = eventMapper.updateToInactivateEvents(event);

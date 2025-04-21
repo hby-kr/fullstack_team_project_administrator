@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -31,56 +32,44 @@ public class EventController {
     @GetMapping("/{eventId}/detail.do")
     public String detail(
             Model model,
-            @PathVariable long eventId
+            @PathVariable int eventId
     ) {
-        List<Event> events = eventService.findActiveEvents();
-        if(events != null) {
-            model.addAttribute("unapprovedEvents", events);
-            return "event/readUnapprovedEvents";
+        //List<Event> events = eventService.findActiveEvents();
+        Event event=eventService.detail(eventId);
+        if(event != null) {
+            model.addAttribute("event", event);
+            return "event/detail";
         } else {
             return "redirect:/event/readUnapprovedEvents.do";
         }
     }
 
-    @PostMapping("/{eventId}/ActiveEvent.do")
-    public String activeEvent(
-            @PathVariable String eventId,
-            @ModelAttribute("adminName") String adminName,
-            @ModelAttribute("memo") String memo
-    ) {
-        Event event =eventService.findActiveEvents().get(2);
-
-        if(event.getIsUsed()) {
-            return "redirect:/event/readApprovedEvents.do";
-        }
-        event.setIsUsed(true);
-        event.setMemo(memo + " 활성화 by. " + adminName);
-        boolean active = true;
-        if(active == true) {
-            return "redirect:/event/readApprovedEvents.do";
-        } else {
-            return "redirect:/event/readUnapprovedEvents.do";
-        }
+    @PostMapping("/{eventId}/ApprovedEvents.do")
+    public String ApprovedEvents(
+            RedirectAttributes redirectAttributes) {
+        eventService.findApprovedEvents();
+        redirectAttributes.addFlashAttribute("message", "이벤트가 승인되었습니다.");
+        return "redirect:/event/readUnapprovedEvents.do";
     }
 
-    @PostMapping("/{eventId}/InactiveEvent.do")
+    @PostMapping("/{eventId}/readInactiveEvent.do")
     public String inactiveEvent(
-            @PathVariable String eventId,
+            @PathVariable Integer eventId,
             @ModelAttribute("adminName") String adminName,
             @ModelAttribute("memo") String memo
     ) {
         Event event =eventService.findInactiveEvents().get(2);
         System.out.println(event);
         if (event.getIsUsed()) {
-            return "redirect:/event/readUnapprovedEvents.do";
+            return "redirect:/event/readInactiveEvent.do";
         }
         event.setIsUsed(false);
         event.setMemo(memo + " by. " + adminName);
         boolean active = false;
         if(active == false) {
-            return "redirect:/event/readUnapprovedEvents.do";
+            return "redirect:/event/readInactiveEvent.do";
         } else {
-            return "redirect:/event/readApprovedEvents.do";
+            return "redirect:/event/readActiveEvent.do";
         }
     }
 }

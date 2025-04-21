@@ -42,4 +42,9 @@ class EventServiceImpTest {
     void findInactiveEvents() {
         System.out.println(eventService.findInactiveEvents());
     }
+
+    @Test
+    void detail() {
+        System.out.println(eventService.detail(1));
+    }
 }

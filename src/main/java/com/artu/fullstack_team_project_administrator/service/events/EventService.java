@@ -19,6 +19,7 @@ public interface EventService {
     // 비활성화된 공연정보 불러오기 (is_used)
     List<Event> findInactiveEvents();
 
+    Event detail(int eventId);
     // 체크된 활성화 공연정보 비활성화 시키기
     boolean modifyInactivate(Event event);
 
