@@ -40,16 +40,15 @@ public class EventServiceImp implements EventService {
     }
 
     @Override
-    @Transactional
-    public boolean modifyInactivate(Event event) {
-        int update = eventMapper.updateToInactivateEvents(event);
+    public boolean modifyApproved(int eventId, boolean isApproved) {
+        int update=eventMapper.updateApproved(eventId,isApproved);
         if (update == 1){return true;}
         return false;
     }
+
     @Override
-    @Transactional
-    public boolean modifyActivate(Event event) {
-        int update = eventMapper.updateToActivateEvents(event);
+    public boolean modifyUnApproved(int eventId, boolean isUnApproved) {
+        int update = eventMapper.updateUnapproved(eventId,isUnApproved);
         if (update == 1){return true;}
         return false;
     }

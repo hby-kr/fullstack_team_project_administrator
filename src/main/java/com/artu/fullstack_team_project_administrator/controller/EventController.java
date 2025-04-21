@@ -46,30 +46,15 @@ public class EventController {
 
     @PostMapping("/{eventId}/ApprovedEvents.do")
     public String ApprovedEvents(
-            RedirectAttributes redirectAttributes) {
-        eventService.findApprovedEvents();
-        redirectAttributes.addFlashAttribute("message", "이벤트가 승인되었습니다.");
-        return "redirect:/event/readUnapprovedEvents.do";
+            @PathVariable int eventId) {
+        boolean result=eventService.modifyApproved(eventId,true);
+        return "redirect:/event/ApprovedEvents";
     }
 
-    @PostMapping("/{eventId}/readInactiveEvent.do")
-    public String inactiveEvent(
-            @PathVariable Integer eventId,
-            @ModelAttribute("adminName") String adminName,
-            @ModelAttribute("memo") String memo
-    ) {
-        Event event =eventService.findInactiveEvents().get(2);
-        System.out.println(event);
-        if (event.getIsUsed()) {
-            return "redirect:/event/readInactiveEvent.do";
-        }
-        event.setIsUsed(false);
-        event.setMemo(memo + " by. " + adminName);
-        boolean active = false;
-        if(active == false) {
-            return "redirect:/event/readInactiveEvent.do";
-        } else {
-            return "redirect:/event/readActiveEvent.do";
+    @PostMapping("/{eventId}/UnapprovedEvents.do")
+    public String UnapprovedEvents(
+            @PathVariable int eventId) {
+        boolean result=eventService.modifyUnApproved(eventId,true);
+        return "redirect:/event/UnapprovedEvents";
         }
     }
-}

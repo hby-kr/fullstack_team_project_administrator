@@ -41,18 +41,13 @@
         FROM artu.events
         WHERE is_used = false
     </select>
+
     <select id="findEventById" resultMap="EventMap">
         SELECT *
         FROM artu.events
         WHERE event_id=#{id}
     </select>
 
-    <update id="updateToInactivateEvents" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
-        UPDATE events
-        SET is_used = #{isUsed},
-            memo = #{memo}
-        WHERE event_id = #{eventId}
-    </update>
 
     <update id="updateToActivateEvents" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
         UPDATE events
@@ -61,4 +56,17 @@
         WHERE event_id = #{eventId}
     </update>
 
+    <update id="updateApproved" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        UPDATE events
+        SET is_approved = #{isApproved}
+        WHERE event_id = #{eventId}
+
+    </update>
+
+    <update id="updateUnapproved" parameterType="com.artu.fullstack_team_project_administrator.dto.Event">
+        UPDATE events
+        SET is_approved= #{isApproved},
+            memo = #{memo}
+        WHERE event_id = #{eventId}
+    </update>
 </mapper>

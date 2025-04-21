@@ -42,7 +42,7 @@ class EventMapperTest {
 
     @Order(5)
     @Test
-    void updateToInactivateEvents() {
+    void updateApprovedEvents() {
         Event event = new Event();
         event.setEventId(1);
         event.setCtgrId(1);
@@ -57,7 +57,7 @@ class EventMapperTest {
 
     @Order(6)
     @Test
-    void updateToActivateEvents() {
+    void updateUnapprovedEvents() {
         Event event = new Event();
         event.setEventId(1);
         event.setCtgrId(1);

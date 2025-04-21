@@ -107,7 +107,7 @@
     </thead>
 
     <tbody>
-    <tr th:each="event : ${InactiveEvent}">
+    <tr th:each="event : ${UnapprovedEvents}">
       <td th:text = "${event.eventId}"></td>
       <td th:text = "${event.ctgrId}"></td>
       <td th:text = "${event.title}"></td>
