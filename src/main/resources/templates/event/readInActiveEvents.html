@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #121212;  /* 어두운 배경 */
+      color: #fff;  /* 텍스트 색상: 흰색 */
+      display: flex;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #fff;  /* 제목 색상: 흰색 */
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      flex : 1;
+    }
+
+    /* 테이블 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #1f1f1f;  /* 어두운 회색 배경 */
+      border-radius: 8px;  /* 둥근 모서리 */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);  /* 테이블에 그림자 효과 */
+    }
+
+    th, td {
+      padding: 12px 20px;
+      text-align: left;
+      border: 1px solid #444;  /* 어두운 회색 테두리 */
+    }
+
+    th {
+      background-color: #333;  /* 더 어두운 회색 배경 */
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #222;  /* 짙은 회색 배경 */
+    }
+
+    tr:nth-child(odd) {
+      background-color: #1a1a1a;  /* 어두운 배경 */
+    }
+
+    tr:hover {
+      background-color: #444;  /* 행에 마우스 올리면 어두운 회색 배경으로 변경 */
+      cursor: pointer;
+      transition: background-color 0.3s ease;  /* 부드러운 전환 효과 */
+    }
+
+    /* 테이블 데이터 텍스트 스타일 */
+    td {
+      color: #ccc;  /* 연한 회색 텍스트 */
+      font-size: 1rem;
+    }
+
+    /* 테이블 헤더 폰트 크기 및 스타일 */
+    th {
+      font-size: 1.1rem;
+    }
+
+    /* 테이블 헤더에 마우스 올리면 강조 효과 */
+    th:hover {
+      background-color: #444;  /* 헤더에 마우스를 올리면 배경색 변경 */
+      color: #e0e0e0;  /* 텍스트 색상 변경 */
+    }
+
+  </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/aside :: sidebar}"></div>
+
+<div class="container">
+  <h1>비활성화 이벤트 리스트</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>이벤트 ID</th>
+      <th>카테고리 ID</th>
+      <th>제목</th>
+      <th>지역</th>
+      <th>주최사</th>
+      <th>주소</th>
+      <th>관람등급</th>
+      <th>관람시간</th>
+      <th>상세보기</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="event : ${InactiveEvent}">
+      <td th:text = "${event.eventId}"></td>
+      <td th:text = "${event.ctgrId}"></td>
+      <td th:text = "${event.title}"></td>
+      <td th:text = "${event.location}" ></td>
+      <td th:text = "${event.company}"></td>
+      <td th:text="${event.address}"></td>
+      <td th:text = "${event.ageLimit}"></td>
+      <td th:text="${event.howLong}"></td>
+      <td><a th:href="@{'/event/{eventId}/detail.do'(eventId=${event.eventId})}">상세보기</a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
