@@ -728,7 +728,7 @@ CREATE TABLE event_reviews
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL,
     deleted_reason VARCHAR(255) NULL,
-    is_reported BOOLEAN DEFAULT TRUE NOT NULL,
+    is_reported BOOLEAN DEFAULT FALSE NOT NULL,
     reported_at TIMESTAMP NULL,
     reported_reason VARCHAR(255) NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
