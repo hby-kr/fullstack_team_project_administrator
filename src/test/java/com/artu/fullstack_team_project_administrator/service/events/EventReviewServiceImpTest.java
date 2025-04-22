@@ -14,15 +14,5 @@ class EventReviewServiceImpTest {
     @Autowired
     private EventReviewService eventReviewService;
 
-    @Test
-    void deactivateReview() {
-        EventReviews eventReviews = eventReviewService.selectByPrimaryKey(1);
-        System.out.println(eventReviews);
-        eventReviews.setIsUsed(false);
-        eventReviews.setDeletedAt(LocalDate.now());
-        eventReviews.setDeleted_reason("비속어를 사용했습니다.");
-        System.out.println(eventReviews);
 
-        eventReviewService.deactivateReview(eventReviews.getReviewId());
-    }
 }

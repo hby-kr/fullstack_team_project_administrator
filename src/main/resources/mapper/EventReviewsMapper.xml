@@ -9,14 +9,14 @@
     <result column="contents" jdbcType="VARCHAR" property="contents" />
     <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
     <result column="is_reported" jdbcType="BOOLEAN" property="isReported" />
-    <result column="report_reason" jdbcType="VARCHAR" property="reportReason" />
+    <result column="report_reason" jdbcType="VARCHAR" property="reportedReason" />
     <result column="reported_at" jdbcType="TIMESTAMP" property="reportedAt" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
     <result column="deleted_reason" jdbcType="VARCHAR" property="deletedReason" />
   </resultMap>
   <sql id="Base_Column_List">
-    review_id, user_id, event_id, rate, contents, is_used, is_reported, report_reason, reported_at, created_at, deleted_at, deleted_reason
+    review_id, user_id, event_id, rate, contents, is_used, is_reported, reported_reason, reported_at, created_at, deleted_at, deleted_reason
   </sql>
   <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.EventReviews">
     insert into event_reviews (review_id, user_id, event_id, rate, contents, created_at)
@@ -87,7 +87,10 @@
         deleted_reason = #{deletedReason,jdbcType=VARCHAR},
       </if>
       <if test="deletedAt != null">
-        deleted_reason = #{deletedReason,jdbcType=VARCHAR},
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isReported != null">
+        is_reported = #{isReported,jdbcType=BOOLEAN}
       </if>
     </set>
     where review_id = #{reviewId,jdbcType=INTEGER}

@@ -21,7 +21,7 @@ public class EventReviews implements Serializable {
     private Boolean isUsed;
     private LocalDate createdAt;
     private Boolean isReported;
-    private String reportReason;
+    private String reportedReason;
     private LocalDate reportedAt;
     private LocalDate deletedAt;
     private String deletedReason;

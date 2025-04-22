@@ -34,7 +34,7 @@ public class EventReviewController {
     }
     @GetMapping("/reported")
     public String findReportedReview(Model model) {
-        model.addAttribute("reportedReview", eventReviewService.findReprotedReviews());
+        model.addAttribute("reportedReviews", eventReviewService.findReprotedReviews());
         return "review/reported_reviews";
     }
     @GetMapping("/deactivate")
@@ -43,9 +43,10 @@ public class EventReviewController {
         return "review/deactivated_reviews";
     }
 
-    @PostMapping("/reviews/deactivate")
-    public String deactivateReview(@RequestParam("reviewId") Integer reviewId){
-        eventReviewService.deactivateReview(reviewId);
+    @PostMapping("/deactivate")
+    public String deactivateReview(@RequestParam("reviewId") Integer reviewId,
+                                   @RequestParam("deletedReason") String deletedReason){
+        eventReviewService.deactivateReviewWithReason(reviewId, deletedReason);
         return "redirect:/review/deactivate";
     }
 }

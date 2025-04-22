@@ -107,12 +107,14 @@
         <td th:text="${#temporals.format(review.createdAt,'yy년 MM월 dd일')}"></td>
         <td th:text="${review.reviewId}"></td>
         <td th:text="${review.userId}"></td>
+        <td th:text="${review.eventId}"></td>
         <td th:text="${review.contents}"></td>
-        <td th:text="${review.reportReason}"></td>
+        <td th:text="${review.reportedReason}"></td>
         <td th:text="${#temporals.format(review.reportedAt,'yy년 MM월 dd일')}"></td>
         <td>
           <form th:action="@{/review/deactivate}" method="post">
             <input type="hidden" name="reviewId" th:value="${review.reviewId}"/>
+            <input type="text" name="deletedReason" placeholder="사유 입력" required/>
             <button type="submit">비활성화</button>
           </form>
         </td>

@@ -17,7 +17,7 @@ public interface EventReviewService {
     EventReviews selectByPrimaryKey(Integer reviewId);
 
     // 공연리뷰 isUsed = false 로 변경 (논리 삭제)
-    boolean deactivateReview(Integer reviewId);
+    boolean deactivateReviewWithReason(Integer reviewId, String deletedReason);
 
     // 신고된 공연리뷰 불러오기
     List<EventReviews> findReprotedReviews();
