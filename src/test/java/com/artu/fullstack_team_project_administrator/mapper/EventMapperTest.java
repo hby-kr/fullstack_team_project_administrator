@@ -53,6 +53,7 @@ class EventMapperTest {
         event.setAgeLimit("12");
         event.setHowLong(120);
         event.setUserId("user1001");
+        System.out.println(eventMapper.updateUnapproved(1,false));
     }
 
     @Order(6)
@@ -68,6 +69,7 @@ class EventMapperTest {
         event.setAgeLimit("12");
         event.setHowLong(120);
         event.setUserId("user1001");
+        System.out.println(eventMapper.updateUnapproved(1,true));
     }
 
     @Test

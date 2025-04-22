@@ -121,7 +121,7 @@
       <td th:text = "${event.ageLimit}"></td>
       <td th:text="${event.howLong}"></td>
       <td th:text="${event.isApproved == true ? '' : '승인대기'}"></td>
-      <td><a th:href="@{'/event/{eventId}/detail.do'(eventId=${event.eventId})}">상세보기</a></td>
+      <td><a th:href="@{'/event/{eventId}/detail3.do'(eventId=${event.eventId})}">상세보기</a></td>
     </tr>
     </tbody>
   </table>

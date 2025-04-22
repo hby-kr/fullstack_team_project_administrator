@@ -107,7 +107,7 @@
     </thead>
 
     <tbody>
-    <tr th:each="event : ${UnapprovedEvents}">
+    <tr th:each="event : ${unapprovedEvents}">
       <td th:text = "${event.eventId}"></td>
       <td th:text = "${event.ctgrId}"></td>
       <td th:text = "${event.title}"></td>
@@ -116,7 +116,7 @@
       <td th:text="${event.address}"></td>
       <td th:text = "${event.ageLimit}"></td>
       <td th:text="${event.howLong}"></td>
-      <td><a th:href="@{'/event/{eventId}/detail.do'(eventId=${event.eventId})}">상세보기</a></td>
+      <td><a th:href="@{'/event/{eventId}/detail2.do'(eventId=${event.eventId})}">상세보기</a></td>
     </tr>
     </tbody>
   </table>

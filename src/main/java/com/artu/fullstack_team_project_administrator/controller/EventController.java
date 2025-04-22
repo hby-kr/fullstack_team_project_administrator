@@ -26,7 +26,22 @@ public class EventController {
     @GetMapping("/readApprovedEvents.do")
     public String readApprovedEvents(Model model) {
         model.addAttribute("approvedEvents", eventService.findApprovedEvents());
-        return "event/readApprovedEvents";
+        return "event/ApprovedEvents";
+    }
+
+    @GetMapping("/{eventId}/detail3.do")
+    public String detail3(
+            Model model,
+            @PathVariable int eventId
+    ) {
+        //List<Event> events = eventService.findActiveEvents();
+        Event event=eventService.detail(eventId);
+        if(event != null) {
+            model.addAttribute("event", event);
+            return "event/detail3";
+        } else {
+            return "redirect:/event/readUnapprovedEvents.do";
+        }
     }
 
     @GetMapping("/{eventId}/detail.do")
@@ -40,8 +55,29 @@ public class EventController {
             model.addAttribute("event", event);
             return "event/detail";
         } else {
-            return "redirect:/event/readUnapprovedEvents.do";
+            return "redirect:/event/ApprovedEvents.do";
         }
+    }
+
+    @GetMapping("/{eventId}/detail2.do")
+    public String detail2(
+            Model model,
+            @PathVariable int eventId
+    ) {
+        //List<Event> events = eventService.findActiveEvents();
+        Event event=eventService.detail(eventId);
+        if(event != null) {
+            model.addAttribute("event", event);
+            return "event/detail2";
+        } else {
+            return "redirect:/event/UnapprovedEvents.do";
+        }
+    }
+
+    @GetMapping("/UnapprovedEvents.do")
+    public String unapprovedEvents(Model model) {
+        model.addAttribute("unapprovedEvents", eventService.findUnapprovedEvents());
+        return "event/UnapprovedEvents";
     }
 
     @PostMapping("/{eventId}/ApprovedEvents.do")
