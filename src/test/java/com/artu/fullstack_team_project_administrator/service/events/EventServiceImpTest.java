@@ -14,23 +14,23 @@ class EventServiceImpTest {
     private EventService eventService;
 
     @Test
-    void modifyInactivate() {
+    void modifyUnapproved() {
         Event event = new Event();
         event.setEventId(1);
-        event.setIsUsed(false);
+        event.setIsApproved(false);
         event.setMemo("주최사 없음");
-        boolean result = eventService.modifyInactivate(event);
-        System.out.println("Inactive result =" + result);
+        boolean result = eventService.modifyApproved(1,false);
+        System.out.println("Unapproved result =" + result);
     }
 
     @Test
-    void modifyActivate() {
+    void modifyApproved() {
         Event event = new Event();
         event.setEventId(1);
-        event.setIsUsed(true);
+        event.setIsApproved(true);
         event.setMemo("주최사 찾음");
-        boolean result = eventService.modifyActivate(event);
-        System.out.println("Active result =" + result);
+        boolean result = eventService.modifyApproved(1,true);
+        System.out.println("Approved result =" + result);
     }
 
     @Test
