@@ -25,6 +25,10 @@ public class Postings implements Serializable {
 
     private Boolean isUsed;
 
+    private String deletedReason;
+
+    private Date deletedAt;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getPostId() {
@@ -98,4 +102,12 @@ public class Postings implements Serializable {
     public void setIsUsed(Boolean isUsed) {
         this.isUsed = isUsed;
     }
+
+    public String getDeletedReason() {return deletedReason;}
+
+    public void setDeletedReason(String deletedReason) {this.deletedReason = deletedReason;}
+
+    public Date getDeletedAt() {return deletedAt;}
+
+    public void setDeletedAt(Date deletedAt) {this.deletedAt = deletedAt;}
 }

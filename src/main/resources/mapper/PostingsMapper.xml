@@ -11,10 +11,12 @@
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="edit_at" jdbcType="TIMESTAMP" property="editAt" />
     <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+    <result column="deleted_reason" jdbcType="VARCHAR" property="deletedReason" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt"></result>
   </resultMap>
   <sql id="Base_Column_List">
     post_id, user_id, contents, location_tag, person_tag_id, visibility_type, created_at, 
-    edit_at, is_used
+    edit_at, is_used, deleted_reason, deleted_at
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -22,73 +24,77 @@
     from postings
     where post_id = #{postId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from postings
-    where post_id = #{postId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="post_id" keyProperty="postId" parameterType="com.artu.fullstack_team_project_administrator.dto.Postings" useGeneratedKeys="true">
-    insert into postings (user_id, contents, location_tag, 
-      person_tag_id, visibility_type, created_at, 
-      edit_at, is_used)
-    values (#{userId,jdbcType=VARCHAR}, #{contents,jdbcType=VARCHAR}, #{locationTag,jdbcType=VARCHAR}, 
-      #{personTagId,jdbcType=VARCHAR}, #{visibilityType,jdbcType=OTHER}, #{createdAt,jdbcType=TIMESTAMP}, 
-      #{editAt,jdbcType=TIMESTAMP}, #{isUsed,jdbcType=BOOLEAN})
-  </insert>
-  <insert id="insertSelective" keyColumn="post_id" keyProperty="postId" parameterType="com.artu.fullstack_team_project_administrator.dto.Postings" useGeneratedKeys="true">
-    insert into postings
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="contents != null">
-        contents,
-      </if>
-      <if test="locationTag != null">
-        location_tag,
-      </if>
-      <if test="personTagId != null">
-        person_tag_id,
-      </if>
-      <if test="visibilityType != null">
-        visibility_type,
-      </if>
-      <if test="createdAt != null">
-        created_at,
-      </if>
-      <if test="editAt != null">
-        edit_at,
-      </if>
-      <if test="isUsed != null">
-        is_used,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="contents != null">
-        #{contents,jdbcType=VARCHAR},
-      </if>
-      <if test="locationTag != null">
-        #{locationTag,jdbcType=VARCHAR},
-      </if>
-      <if test="personTagId != null">
-        #{personTagId,jdbcType=VARCHAR},
-      </if>
-      <if test="visibilityType != null">
-        #{visibilityType,jdbcType=OTHER},
-      </if>
-      <if test="createdAt != null">
-        #{createdAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="editAt != null">
-        #{editAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isUsed != null">
-        #{isUsed,jdbcType=BOOLEAN},
-      </if>
-    </trim>
-  </insert>
+  <select id="findDeactivatedPosts" resultMap="BaseResultMap">
+    SELECT * FROM postings WHERE is_used = false ORDER BY created_at DESC
+  </select>
+
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from postings-->
+<!--    where post_id = #{postId,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insert" keyColumn="post_id" keyProperty="postId" parameterType="com.artu.fullstack_team_project_administrator.dto.Postings" useGeneratedKeys="true">-->
+<!--    insert into postings (user_id, contents, location_tag, -->
+<!--      person_tag_id, visibility_type, created_at, -->
+<!--      edit_at, is_used)-->
+<!--    values (#{userId,jdbcType=VARCHAR}, #{contents,jdbcType=VARCHAR}, #{locationTag,jdbcType=VARCHAR}, -->
+<!--      #{personTagId,jdbcType=VARCHAR}, #{visibilityType,jdbcType=OTHER}, #{createdAt,jdbcType=TIMESTAMP}, -->
+<!--      #{editAt,jdbcType=TIMESTAMP}, #{isUsed,jdbcType=BOOLEAN})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" keyColumn="post_id" keyProperty="postId" parameterType="com.artu.fullstack_team_project_administrator.dto.Postings" useGeneratedKeys="true">-->
+<!--    insert into postings-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="userId != null">-->
+<!--        user_id,-->
+<!--      </if>-->
+<!--      <if test="contents != null">-->
+<!--        contents,-->
+<!--      </if>-->
+<!--      <if test="locationTag != null">-->
+<!--        location_tag,-->
+<!--      </if>-->
+<!--      <if test="personTagId != null">-->
+<!--        person_tag_id,-->
+<!--      </if>-->
+<!--      <if test="visibilityType != null">-->
+<!--        visibility_type,-->
+<!--      </if>-->
+<!--      <if test="createdAt != null">-->
+<!--        created_at,-->
+<!--      </if>-->
+<!--      <if test="editAt != null">-->
+<!--        edit_at,-->
+<!--      </if>-->
+<!--      <if test="isUsed != null">-->
+<!--        is_used,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="userId != null">-->
+<!--        #{userId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="contents != null">-->
+<!--        #{contents,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="locationTag != null">-->
+<!--        #{locationTag,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="personTagId != null">-->
+<!--        #{personTagId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="visibilityType != null">-->
+<!--        #{visibilityType,jdbcType=OTHER},-->
+<!--      </if>-->
+<!--      <if test="createdAt != null">-->
+<!--        #{createdAt,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="editAt != null">-->
+<!--        #{editAt,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="isUsed != null">-->
+<!--        #{isUsed,jdbcType=BOOLEAN},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
   <update id="updateByPrimaryKeySelective" parameterType="com.artu.fullstack_team_project_administrator.dto.Postings">
     update postings
     <set>
@@ -116,6 +122,12 @@
       <if test="isUsed != null">
         is_used = #{isUsed,jdbcType=BOOLEAN},
       </if>
+      <if test="deletedReason != null">
+        deleted_reason = #{deletedReason,jdbcType=VARCHAR}
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt, jdbcType=TIMESTAMP}
+      </if>
     </set>
     where post_id = #{postId,jdbcType=INTEGER}
   </update>
@@ -128,7 +140,16 @@
       visibility_type = #{visibilityType,jdbcType=OTHER},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
       edit_at = #{editAt,jdbcType=TIMESTAMP},
-      is_used = #{isUsed,jdbcType=BOOLEAN}
+      is_used = #{isUsed,jdbcType=BOOLEAN},
+      deleted_reason = #{deletedReason,jdbcType=VARCHAR},
+      deleted_at = #{deletedAt, jdbcType=TIMESTAMP}
     where post_id = #{postId,jdbcType=INTEGER}
+  </update>
+  <update id="activatePostings" parameterType="int">
+    UPDATE postings
+    SET is_used = TRUE,
+        deleted_reason = NULL,
+        deleted_at = NULL
+    WHERE post_id = #{postId}
   </update>
 </mapper>

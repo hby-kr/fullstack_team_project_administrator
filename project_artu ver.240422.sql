@@ -259,6 +259,8 @@ CREATE TABLE postings
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     edit_at timestamp NULL,
     is_used BOOLEAN DEFAULT TRUE NOT NULL,
+    deleted_reason VARCHAR(255) NULL,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (person_tag_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
