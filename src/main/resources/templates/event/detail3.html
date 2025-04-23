@@ -184,7 +184,9 @@
   </table>
   <p>
     <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
-    <a  th:href="@{/event/{eventId}/ApprovedEvents.do(eventId=${event.eventId})}" class="approve-button">승인</a>
+    <form th:action="@{/event/{eventId}/ApprovedEvents(eventId=${event.eventId})}" method="Post" style="display: inline;">
+        <button type="submit" class="approve-button">승인</button>
+    </form>
   </p>
 </div>
 

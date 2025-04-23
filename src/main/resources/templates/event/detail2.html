@@ -184,14 +184,13 @@
   </table>
   <p>
     <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
-    <a  th:href="@{/event/{eventId}/ApprovedEvents.do(eventId=${event.eventId})}" class="approve-button">승인</a>
     <th:block th:if="${event.isUsed == false}">
       <button id="showApprovedForm">활성화 설정</button>
     </th:block>
   </p>
 
   <div id="ApprovedContainer">
-    <form th:action="@{/event/{eventId}/ApprovedEvent.do(eventId=${event.eventId})}" method="post">
+    <form th:action="@{/event/{eventId}/ApprovedEvents(eventId=${event.eventId})}" method="post">
       <p><label>관리자 이름<input type="text" name="adminName" required></label></p>
       <p><label>활성화 사유<input type="text" name="memo" th:value="${event.memo}" required></label></p>
       <p>

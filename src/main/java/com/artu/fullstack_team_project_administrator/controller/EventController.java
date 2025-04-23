@@ -35,8 +35,8 @@ public class EventController {
             @PathVariable int eventId
     ) {
         //List<Event> events = eventService.findActiveEvents();
-        Event event=eventService.detail(eventId);
-        if(event != null) {
+        Event event = eventService.detail(eventId);
+        if (event != null) {
             model.addAttribute("event", event);
             return "event/detail3";
         } else {
@@ -50,8 +50,8 @@ public class EventController {
             @PathVariable int eventId
     ) {
         //List<Event> events = eventService.findActiveEvents();
-        Event event=eventService.detail(eventId);
-        if(event != null) {
+        Event event = eventService.detail(eventId);
+        if (event != null) {
             model.addAttribute("event", event);
             return "event/detail";
         } else {
@@ -65,8 +65,8 @@ public class EventController {
             @PathVariable int eventId
     ) {
         //List<Event> events = eventService.findActiveEvents();
-        Event event=eventService.detail(eventId);
-        if(event != null) {
+        Event event = eventService.detail(eventId);
+        if (event != null) {
             model.addAttribute("event", event);
             return "event/detail2";
         } else {
@@ -80,17 +80,22 @@ public class EventController {
         return "event/UnapprovedEvents";
     }
 
-    @PostMapping("/{eventId}/ApprovedEvents.do")
+    @PostMapping("/{eventId}/ApprovedEvents")
     public String ApprovedEvents(
-            @PathVariable int eventId) {
-        boolean result=eventService.modifyApproved(eventId,true);
-        return "redirect:/event/ApprovedEvents";
+            @PathVariable int eventId,
+            @RequestParam String memo
+    ) {
+        eventService.findApprovedEvents();
+        return "redirect:/event/readApprovedEvents.do";
     }
 
-    @PostMapping("/{eventId}/UnapprovedEvents.do")
+    @PostMapping("/{eventId}/UnapprovedEvents")
     public String UnapprovedEvents(
-            @PathVariable int eventId) {
-        boolean result=eventService.modifyUnApproved(eventId,true);
-        return "redirect:/event/UnapprovedEvents";
-        }
+            @PathVariable int eventId,
+            @RequestParam String memo
+    ) {
+        eventService.findUnapprovedEvents();
+        return "redirect:/event/UnapprovedEvents.do";
     }
+}
+
