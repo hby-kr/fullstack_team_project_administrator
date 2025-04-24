@@ -19,7 +19,7 @@ class EventServiceImpTest {
         event.setEventId(1);
         event.setIsApproved(false);
         event.setMemo("주최사 없음");
-        boolean result = eventService.modifyApproved(1,false);
+        boolean result = eventService.modifyApproved(1,false, "주최사 없음");
         System.out.println("Unapproved result =" + result);
     }
 
@@ -29,7 +29,7 @@ class EventServiceImpTest {
         event.setEventId(1);
         event.setIsApproved(true);
         event.setMemo("주최사 찾음");
-        boolean result = eventService.modifyApproved(1,true);
+        boolean result = eventService.modifyApproved(1,true, "주최사 찾음");
         System.out.println("Approved result =" + result);
     }
 

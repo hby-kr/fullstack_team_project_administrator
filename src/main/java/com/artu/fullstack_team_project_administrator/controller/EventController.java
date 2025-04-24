@@ -2,6 +2,7 @@ package com.artu.fullstack_team_project_administrator.controller;
 
 import com.artu.fullstack_team_project_administrator.dto.Event;
 import com.artu.fullstack_team_project_administrator.service.events.EventService;
+import com.artu.fullstack_team_project_administrator.service.events.EventServiceImp;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EventController {
 
-    private EventService eventService;
+    private EventServiceImp eventService;
 
     @GetMapping("/readUnapprovedEvents.do")
     public String readUnapprovedEvents(Model model) {
@@ -25,6 +26,7 @@ public class EventController {
 
     @GetMapping("/readApprovedEvents.do")
     public String readApprovedEvents(Model model) {
+
         model.addAttribute("approvedEvents", eventService.findApprovedEvents());
         return "event/ApprovedEvents";
     }
@@ -85,8 +87,12 @@ public class EventController {
             @PathVariable int eventId,
             @RequestParam String memo
     ) {
-        eventService.findApprovedEvents();
-        return "redirect:/event/readApprovedEvents.do";
+        boolean update = eventService.modifyApproved(eventId, true, memo);
+        if (update) {
+            return "redirect:/event/readApprovedEvents.do";
+        } else {
+            return "redirect:/event/" + eventId + "/detial3.do";
+        }
     }
 
     @PostMapping("/{eventId}/UnapprovedEvents")
@@ -94,8 +100,12 @@ public class EventController {
             @PathVariable int eventId,
             @RequestParam String memo
     ) {
-        eventService.findUnapprovedEvents();
-        return "redirect:/event/UnapprovedEvents.do";
+        boolean update = eventService.modifyUnApproved(eventId, false, memo);
+        if (update) {
+            return "redirect:/event/UnapprovedEvents.do";
+        } else {
+            return "redirect:/event/" + eventId + "/detail2.do";
+        }
     }
 }
 

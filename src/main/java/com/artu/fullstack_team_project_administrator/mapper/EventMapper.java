@@ -16,11 +16,11 @@ public interface EventMapper {
 
     List<Event> findInactiveEvents();
 
-    int updateUnapproved(int eventId, boolean Unapproved);
+    int updateUnapproved(int eventId, boolean isApproved, String memo);
 
 
     int updateToActivateEvents(Event event);
-    int updateApproved (int eventId, boolean isApproved);
+    int updateApproved (int eventId, boolean isApproved , String memo);
 
 
     Event findEventById(int id);

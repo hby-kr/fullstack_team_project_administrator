@@ -20,9 +20,9 @@ public interface EventService {
 
     Event detail(int eventId);
     // 체크된 활성화 공연정보 비활성화 시키기
-    boolean modifyUnApproved(int eventId,boolean isUnApproved);
+    boolean modifyUnApproved(int eventId,boolean isUnApproved,String memo);
 
     // 체크된 비활성화 공연정보 활성화 시키기 (회원이랑 같네)
-    boolean modifyApproved(int eventId,boolean isApproved);
+    boolean modifyApproved(int eventId,boolean isApproved,String memo);
 
 }
