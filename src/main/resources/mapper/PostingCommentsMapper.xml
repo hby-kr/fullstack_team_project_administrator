@@ -18,16 +18,11 @@
     from posting_comments
     where comment_id = #{commentId,jdbcType=INTEGER}
   </select>
+  <select id=""
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from posting_comments
     where comment_id = #{commentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="comment_id" keyProperty="commentId" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments" useGeneratedKeys="true">
-    insert into posting_comments (user_id, post_id, contents, 
-      created_at, is_used)
-    values (#{userId,jdbcType=VARCHAR}, #{postId,jdbcType=INTEGER}, #{contents,jdbcType=VARCHAR}, 
-      #{createdAt,jdbcType=TIMESTAMP}, #{isUsed,jdbcType=BOOLEAN})
-  </insert>
   <insert id="insertSelective" keyColumn="comment_id" keyProperty="commentId" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments" useGeneratedKeys="true">
     insert into posting_comments
     <trim prefix="(" suffix=")" suffixOverrides=",">

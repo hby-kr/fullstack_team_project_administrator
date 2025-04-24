@@ -95,9 +95,6 @@
             <th>포스트 ID</th>
             <th>작성자</th>
             <th>내용</th>
-            <th>삭제 사유</th>
-            <th>삭제일</th>
-            <th>삭제</th>
             <th>복원</th>
         </tr>
         </thead>
@@ -106,18 +103,12 @@
             <td th:text="${post.postId}"></td>
             <td th:text="${post.userId}"></td>
             <td th:text="${post.contents}"></td>
-
-            <form th:action="@{/posting/deactivate}" method="post">
-                <input type="hidden" name="postId" th:value="${post.postId}" />
-                <td><input type="text" name="deletedReason" placeholder="사유 입력" required /></td>
-                <td><input type="date" name="deletedAt" required /></td>
-                <td><button type="submit">비활성화 유지</button></td>
-            </form>
-
-            <form th:action="@{/posting/activate}" method="post" style="margin-top: 10px;">
-                <input type="hidden" name="postId" th:value="${post.postId}" />
-                <td colspan="3"><button type="submit">복원</button></td>
-            </form>
+            <td>
+                <form th:action="@{/posting/activate}" method="post" style="margin-top: 10px;">
+                    <input type="hidden" name="postId" th:value="${post.postId}" />
+                    <button type="submit">복원</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

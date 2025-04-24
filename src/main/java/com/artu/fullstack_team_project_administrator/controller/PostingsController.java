@@ -28,17 +28,9 @@ public class PostingsController {
         return "posting/deactivated_postings";
     }
 
-    @PostMapping("/deactivate")
-    public String deactivatePost(@RequestParam("postId") Integer postId,
-                                 @RequestParam("deletedReason") String reason,
-                                 @RequestParam("deletedAt") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        postingsService.deactivatePostings(postId, reason, date);
-        return "redirect:/posting/deactivated";
-    }
-
     @PostMapping("/activate")
     public String activatePostings(@RequestParam("postId") Integer postId){
         postingsService.activatePostings(postId);
-        return "redirect:/posting/deactivated";
+        return "redirect:/posting/deactivate";
     }
 }
