@@ -2,6 +2,7 @@ package com.artu.fullstack_team_project_administrator.controller;
 
 import com.artu.fullstack_team_project_administrator.dto.Event;
 import com.artu.fullstack_team_project_administrator.service.events.EventService;
+import com.artu.fullstack_team_project_administrator.service.events.EventServiceImp;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EventController {
 
-    private EventService eventService;
+    private EventServiceImp eventService;
 
     @GetMapping("/readUnapprovedEvents.do")
     public String readUnapprovedEvents(Model model) {
@@ -25,6 +26,7 @@ public class EventController {
 
     @GetMapping("/readApprovedEvents.do")
     public String readApprovedEvents(Model model) {
+
         model.addAttribute("approvedEvents", eventService.findApprovedEvents());
         return "event/ApprovedEvents";
     }
@@ -35,8 +37,8 @@ public class EventController {
             @PathVariable int eventId
     ) {
         //List<Event> events = eventService.findActiveEvents();
-        Event event=eventService.detail(eventId);
-        if(event != null) {
+        Event event = eventService.detail(eventId);
+        if (event != null) {
             model.addAttribute("event", event);
             return "event/detail3";
         } else {
@@ -50,8 +52,8 @@ public class EventController {
             @PathVariable int eventId
     ) {
         //List<Event> events = eventService.findActiveEvents();
-        Event event=eventService.detail(eventId);
-        if(event != null) {
+        Event event = eventService.detail(eventId);
+        if (event != null) {
             model.addAttribute("event", event);
             return "event/detail";
         } else {
@@ -65,8 +67,8 @@ public class EventController {
             @PathVariable int eventId
     ) {
         //List<Event> events = eventService.findActiveEvents();
-        Event event=eventService.detail(eventId);
-        if(event != null) {
+        Event event = eventService.detail(eventId);
+        if (event != null) {
             model.addAttribute("event", event);
             return "event/detail2";
         } else {
@@ -80,17 +82,30 @@ public class EventController {
         return "event/UnapprovedEvents";
     }
 
-    @PostMapping("/{eventId}/ApprovedEvents.do")
+    @PostMapping("/{eventId}/ApprovedEvents")
     public String ApprovedEvents(
-            @PathVariable int eventId) {
-        boolean result=eventService.modifyApproved(eventId,true);
-        return "redirect:/event/ApprovedEvents";
-    }
-
-    @PostMapping("/{eventId}/UnapprovedEvents.do")
-    public String UnapprovedEvents(
-            @PathVariable int eventId) {
-        boolean result=eventService.modifyUnApproved(eventId,true);
-        return "redirect:/event/UnapprovedEvents";
+            @PathVariable int eventId,
+            @RequestParam String memo
+    ) {
+        boolean update = eventService.modifyApproved(eventId, true, memo);
+        if (update) {
+            return "redirect:/event/readApprovedEvents.do";
+        } else {
+            return "redirect:/event/" + eventId + "/detial3.do";
         }
     }
+
+    @PostMapping("/{eventId}/UnapprovedEvents")
+    public String UnapprovedEvents(
+            @PathVariable int eventId,
+            @RequestParam String memo
+    ) {
+        boolean update = eventService.modifyUnApproved(eventId, false, memo);
+        if (update) {
+            return "redirect:/event/UnapprovedEvents.do";
+        } else {
+            return "redirect:/event/" + eventId + "/detail2.do";
+        }
+    }
+}
+

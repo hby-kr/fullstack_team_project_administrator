@@ -131,6 +131,10 @@
       display: none;
     }
 
+    td,th{
+      white-space: nowrap;
+    }
+
   </style>
 </head>
 <body>
@@ -178,20 +182,32 @@
       <td th:text="${event.howLong}"></td>
     </tr>
     <tr>
-      <td>메모 (or 비활성화 사유)</td>
+      <td>메모 (or 활성화 사유)</td>
       <td th:text="${event.memo}"></td>
     </tr>
   </table>
-  <p>
+  <form>
     <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
-    <a  th:href="@{/event/{eventId}/ApprovedEvents.do(eventId=${event.eventId})}" class="approve-button">승인</a>
     <th:block th:if="${event.isUsed == false}">
-      <button id="showApprovedForm">활성화 설정</button>
+      <button id="showUnapprovedForm" type="button">비활성화 설정</button>
     </th:block>
-  </p>
+    <th:block th:if="${event.isUsed == true}">
+      <button id="showApprovedForm" type="button">활성화 설정</button>
+    </th:block>
+  </form>
 
-  <div id="ApprovedContainer">
-    <form th:action="@{/event/{eventId}/ApprovedEvent.do(eventId=${event.eventId})}" method="post">
+  <div id="UnapprovedContainer" class="disabled">
+    <form th:action="@{/event/{eventId}/UnapprovedEvents(eventId=${event.eventId})}" method="post">
+     <p><label>관리자 이름<input type="text" name="adminName" required></label></p>
+     <p><label>비활성화 사유<input type="text" name="memo" th:value="${event.memo}" required></label></p>
+     <p>
+       <button type="submit">비활성화 하기</button>
+     </p>
+   </form>
+  </div>
+
+  <div id="ApprovedContainer" class="disabled">
+    <form th:action="@{/event/{eventId}/ApprovedEvents(eventId=${event.eventId})}" method="post">
       <p><label>관리자 이름<input type="text" name="adminName" required></label></p>
       <p><label>활성화 사유<input type="text" name="memo" th:value="${event.memo}" required></label></p>
       <p>
@@ -202,19 +218,28 @@
 </div>
 
 <script>
-  let showInactivationForm = document.getElementById('showInactivationForm');
-  let showActivationForm = document.getElementById('showActivationForm');
-  let inactivationContainer = document.getElementById('inactivationContainer');
-  let activationContainer = document.getElementById('activationContainer');
+  let showUnapprovedForm = document.getElementById('showUnapprovedForm');
+  let showApprovedForm = document.getElementById('showApprovedForm');
+  let UnapprovedContainer = document.getElementById('UnapprovedContainer');
+  let ApprovedContainer = document.getElementById('ApprovedContainer');
 
-  if (showInactivationForm) {
-    showInactivationForm.onclick = function () {
-      inactivationContainer.classList.toggle('disabled');
+  if (showUnapprovedForm) {
+    showUnapprovedForm.onclick = function () {
+      let isVisible = !UnapprovedContainer.classList.contains('disabled');
+      UnapprovedContainer.classList.toggle('disabled');
+      if (!isVisible) {
+        ApprovedContainer.classList.add('disabled');
+      }
     };
   }
-  if (showActivationForm) {
-    showActivationForm.onclick = function () {
-      activationContainer.classList.toggle('disabled');
+
+  if (showApprovedForm) {
+    showApprovedForm.onclick = function () {
+      let isVisible = !ApprovedContainer.classList.contains('disabled');
+      ApprovedContainer.classList.toggle('disabled');
+      if (!isVisible) {
+        UnapprovedContainer.classList.add('disabled');
+      }
     };
   }
 </script>

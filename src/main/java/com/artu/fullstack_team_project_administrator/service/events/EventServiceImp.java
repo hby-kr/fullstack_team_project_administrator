@@ -40,15 +40,15 @@ public class EventServiceImp implements EventService {
     }
 
     @Override
-    public boolean modifyApproved(int eventId, boolean isApproved) {
-        int update=eventMapper.updateApproved(eventId,isApproved);
+    public boolean modifyApproved(int eventId, boolean isApproved,String memo) {
+        int update=eventMapper.updateApproved(eventId,isApproved,memo);
         if (update == 1){return true;}
         return false;
     }
 
     @Override
-    public boolean modifyUnApproved(int eventId, boolean isUnApproved) {
-        int update = eventMapper.updateUnapproved(eventId,isUnApproved);
+    public boolean modifyUnApproved(int eventId, boolean isUnApproved,String memo) {
+        int update = eventMapper.updateUnapproved(eventId,isUnApproved,memo);
         if (update == 1){return true;}
         return false;
     }
