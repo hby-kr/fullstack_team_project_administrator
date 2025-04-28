@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>위젯 전체 설정 페이지</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #121212; /* 어두운 배경 */
+        color: #fff; /* 텍스트 색상: 흰색 */
+        display: flex;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #fff; /* 제목 색상: 흰색 */
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        flex : 1;
+      }
+
+      /* 테이블 스타일 */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #1f1f1f;  /* 어두운 회색 배경 */
+        border-radius: 8px;  /* 둥근 모서리 */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);  /* 테이블에 그림자 효과 */
+      }
+
+      th, td {
+        padding: 12px 20px;
+        text-align: left;
+        border: 1px solid #444;  /* 어두운 회색 테두리 */
+      }
+
+      th {
+        background-color: #333;  /* 더 어두운 회색 배경 */
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+        background-color: #222;  /* 짙은 회색 배경 */
+      }
+
+      tr:nth-child(odd) {
+        background-color: #1a1a1a;  /* 어두운 배경 */
+      }
+
+      tr:hover {
+        background-color: #444;  /* 행에 마우스 올리면 어두운 회색 배경으로 변경 */
+        cursor: pointer;
+        transition: background-color 0.3s ease;  /* 부드러운 전환 효과 */
+      }
+
+      /* 테이블 데이터 텍스트 스타일 */
+      td {
+        color: #ccc;  /* 연한 회색 텍스트 */
+        font-size: 1rem;
+      }
+
+      /* 테이블 헤더 폰트 크기 및 스타일 */
+      th {
+        font-size: 1.1rem;
+      }
+
+      /* 테이블 헤더에 마우스 올리면 강조 효과 */
+      th:hover {
+        background-color: #444;  /* 헤더에 마우스를 올리면 배경색 변경 */
+        color: #e0e0e0;  /* 텍스트 색상 변경 */
+      }
+
+      .widget-container {
+          margin: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+      }
+
+      .widget {
+          background-color: #f1f1f1;
+          border: 1px solid #ccc;
+          padding: 16px;
+          border-radius: 8px;
+          font-size: 16px;
+      }
+
+      .widget-buttons {
+          margin-top: 10px;
+          display: flex;
+          gap: 10px;
+      }
+
+      .widget-buttons button {
+          padding: 6px 12px;
+          font-size: 14px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+      }
+
+      .edit-btn {
+          background-color: #2196F3;
+          color: white;
+      }
+
+      .edit-btn:hover {
+          background-color: #1976D2;
+      }
+
+      .delete-btn {
+          background-color: #f44336;
+          color: white;
+      }
+
+      .delete-btn:hover {
+          background-color: #d32f2f;
+      }
+
+
+      .add-widget-bar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #4CAF50; /* 초록색 */
+          color: white;
+          padding: 16px;
+          margin: 20px;
+          border-radius: 8px;
+          font-size: 18px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+      }
+
+      .add-widget-bar:hover {
+          background-color: #45a049; /* 호버시 조금 어두운 초록 */
+      }
+
+      .add-widget-bar .plus-icon {
+          margin-right: 10px;
+          font-weight: bold;
+          font-size: 24px;
+      }
+
+      td,th{
+        white-space: nowrap;
+      }
+    </style>
+</head>
+<body>
+
+
+<div th:replace="~{fragments/aside :: sidebar}"></div>
+
+<div class="container">
+  <h1>위젯 설정</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>위젯 ID</th>
+      <th>위젯 크기</th>
+      <th>위젯 테마</th>
+      <th>위젯 Json</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="widget : ${widgets}">
+        <td th:text = "${widget.widgetId}"></td>
+        <td th:text = "${widegt.widgetSize}"></td>
+        <td th:text = "${widget.widgetTheme}"></td>
+        <td th:text = "${widget.widgetJson}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="widget-container" id="widgetContainer">
+  </div>
+
+    <div class="add-widget-bar" onclick="addWidget()">
+    <span class="plus-icon">+</span> 위젯 추가
+  </div>
+
+  <script>
+      let widgetCount = 0;
+
+    function addWidget() {
+      widgetCount++;
+
+        const widgetContainer = document.getElementById('widgetContainer');
+
+        const newWidget = document.createElement('div');
+        newWidget.className = 'widget';
+
+        //위젯 내용 부분
+        const widgetContent = document.createElement('div');
+        widgetContent.innerText = `새 위젯 #${widgetCount}`;
+
+        // 버튼 영역
+        const widgetButtons = document.createElement('div');
+        widgetButtons.className = 'widget-buttons';
+
+        // 수정 버튼
+        const editButton = document.createElement('button');
+        editButton.className = 'edit-btn';
+        editButton.innerText = '수정';
+        editButton.onclick = function() {
+            const newText = prompt('새 내용을 입력하세요:', widgetContent.innerText);
+            if (newText !== null && newText.trim() !== '') {
+                widgetContent.innerText = newText;
+            }
+        };
+
+        // 삭제 버튼
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-btn';
+        deleteButton.innerText = '삭제';
+        deleteButton.onclick = function() {
+            if (confirm('이 위젯을 삭제할까요?')) {
+                newWidget.remove();
+            }
+        };
+
+        // 버튼들 추가
+        widgetButtons.appendChild(editButton);
+        widgetButtons.appendChild(deleteButton);
+
+        // 위젯에 내용 + 버튼 붙이기
+        newWidget.appendChild(widgetContent);
+        newWidget.appendChild(widgetButtons);
+
+        // 전체 컨테이너에 위젯 추가
+        widgetContainer.appendChild(newWidget);
+    }
+  </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.artu.fullstack_team_project_administrator.mapper.WidgetsMapper">
+
+    <resultMap id="WidgetMap" type="com.artu.fullstack_team_project_administrator.dto.Widgets">
+        <id column="widget_id" property="widgetId"/>
+        <result column="widget_size" property="widgetSize"/>
+        <result column="widget_theme" property="widgetTheme"/>
+        <result column="widget_json" property="widgetJson"/>
+    </resultMap>
+
+    <select id="findAllByIsUsed" resultMap="WidgetMap">
+        SELECT *
+        FROM artu.widgets
+        WHERE is_used = #{bool}
+    </select>
+
+    <select id="readAll" resultType="com.artu.fullstack_team_project_administrator.dto.Widgets">
+        SELECT *
+        FROM artu.widgets
+        WHERE widget_id = #{widgetId}
+    </select>
+
+    <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.Widgets">
+        INSERT INTO widgets (widget_id, widget_size, widget_theme, widget_json)
+        VALUES ()
+    </insert>
+
+    <update id="update" parameterType="com.artu.fullstack_team_project_administrator.dto.Widgets">
+        UPDATE widgets
+        SET user_id = #{userId},
+            widget_size = #{widgetSize},
+            widget_theme = #{widgetTheme},
+            widget_is_used = #{widgetIsUsed},
+            widget_json = #{widgetJson},
+            is_used = #{isUsed}
+        WHERE widget_id = #{widgetId}
+    </update>
+    
+    <delete id="delete" parameterType="String">
+        DELETE
+        FROM widgets
+        WHERE widget_id = #{widgetId}
+    </delete>
+</mapper>

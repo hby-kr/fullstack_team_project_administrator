@@ -91,7 +91,7 @@ public class EventController {
         if (update) {
             return "redirect:/event/readApprovedEvents.do";
         } else {
-            return "redirect:/event/" + eventId + "/detial3.do";
+            return "redirect:/event/" + eventId + "/detail3.do";
         }
     }
 

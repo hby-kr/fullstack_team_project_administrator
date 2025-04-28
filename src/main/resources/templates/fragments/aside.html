@@ -3,8 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        padding-left: 250px;
+        transition: padding-left 0.3s ease;
+      }
+
+      .collapsed ~ .content {
+        padding-left: 0;
+      }
+
+      .sidebar.collapsed {
+        transform: translateX(-100%);
+      }
+
+      .toggle-btn {
+        position: fixed;
+        top: 70px;
+        left: 260px;
+        z-index: 1100;
+        background-color: #444;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: left 0.3s ease;
+      }
+
+      .sidebar.collapsed + .toggle-btn {
+        left: 10px;
+      }
+    </style>
 </head>
 <body>
+
+<!-- Toggle Button -->
+<button class="toggle-btn" onclick="toggleSidebar()">☰ 메뉴</button>
 
 <!-- 사이드 메뉴 -->
 <aside class="sidebar" th:fragment="sidebar">
@@ -12,6 +49,11 @@
   <ul>
     <li><a href="/user/readActiveUsers.do">유저 찾기전체보기</a></li>
     <li><a href="/user/readInactiveUsers.do">비활성 유저 찾기</a></li>
+  </ul>
+
+  <h2> 위젯 관련</h2>
+  <ul>
+    <li><a href="/widget/read.do">위젯 전체 설정</a></li>
   </ul>
 
   <h2> 이벤트 관련</h2>
@@ -29,7 +71,6 @@
     <li><a href="/posting/deactivate">신고된 포스팅</a></li>
     <li><a href="#">신고된 포스팅 댓글</a></li>
   </ul>
-
 
   <h2> 결제 관련</h2>
   <ul>
