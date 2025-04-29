@@ -3,7 +3,7 @@
 --	
 -- Project of group1 in Fullstack course at TJ Academy	
 --	
--- members: 고현, 김기원, 서미란, 이상혁, 이수정, 황보영
+-- memebers: 고현, 김기원, 서미란, 이상혁, 이수정, 황보영	
 --	
 -- title: ArtU _ 공연플랫폼	
 --	
@@ -15,28 +15,30 @@
 DROP SCHEMA IF EXISTS artu;
 CREATE SCHEMA artu DEFAULT CHARACTER SET utf8mb4;
 
--- Role 생성	
-DROP ROLE IF EXISTS 'dev_role';
-DROP ROLE IF EXISTS 'user_role'; -- 있으면 삭제하고	
-CREATE ROLE 'dev_role'; -- 새롭게 또는 다시 만든다.	
-CREATE ROLE 'user_role';
+-- 기존 ROLE 삭제
+DROP ROLE IF EXISTS 'admin_role';
+DROP ROLE IF EXISTS 'analyst_role';
+-- 새 ROLE 생성
+CREATE ROLE 'admin_role';
+CREATE ROLE 'analyst_role';
+-- ROLE에게 권한 부여
+GRANT SELECT, INSERT, UPDATE, DELETE, TRIGGER ON artu.* TO 'admin_role';
+GRANT SELECT ON artu.* TO 'analyst_role';
 
--- 권한을 Role에 부여	
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP, TRIGGER ON artu.* TO 'dev_role';
-GRANT SELECT, INSERT, UPDATE, DELETE, TRIGGER ON artu.* TO 'user_role';
 
--- 개발자 계정 생성, 역할할당, 권한부여	
-DROP USER IF EXISTS 'artu_dev'@'localhost'; -- 사용자 계정 삭제 (기존 계정이 존재하면 삭제)	
-CREATE USER 'artu_dev'@'localhost' IDENTIFIED BY 'mysql'; -- 개발자 계정 생성	
-GRANT 'dev_role' TO 'artu_dev'@'localhost'; -- 'dev_role'을 'artu_dev'에 부여	
-SET DEFAULT ROLE 'dev_role' TO 'artu_dev'@'localhost'; -- 'artu_dev'에 대해 'dev_role'을 기본 역할로 설정	
-FLUSH PRIVILEGES;
+-- 사용자 계정 삭제 및 생성 (host: % -> 모든 IP에서 접근 가능)
+DROP USER IF EXISTS 'artu_dev'@'localhost';
+DROP USER IF EXISTS 'artu_dev'@'%';
+CREATE USER 'artu_dev'@'%' IDENTIFIED BY 'artuartu';
+GRANT 'admin_role' TO 'artu_dev'@'%';
+SET DEFAULT ROLE 'admin_role' TO 'artu_dev'@'%';
 
--- 유저 계정 생성, 역할할당, 권한부여	
-DROP USER IF EXISTS 'artu_user'@'localhost'; -- 사용자 계정 삭제 (기존 계정이 존재하면 삭제)	
-CREATE USER 'artu_user'@'localhost' IDENTIFIED BY 'mysql'; -- 일반 사용자 계정 생성	
-GRANT 'user_role' TO 'artu_user'@'localhost'; -- 'user_role'을 'artu_user'에 부여	
-SET DEFAULT ROLE 'user_role' TO 'artu_user'@'localhost'; -- 권한을 설정하고 활성화	
+DROP USER IF EXISTS 'artu_analyst'@'localhost';
+DROP USER IF EXISTS 'artu_analyst'@'%';
+CREATE USER 'artu_analyst'@'%' IDENTIFIED BY 'artuartu';
+GRANT 'analyst_role' TO 'artu_analyst'@'%';
+SET DEFAULT ROLE 'analyst_role' TO 'artu_analyst'@'%';
+
 FLUSH PRIVILEGES;
 
 
@@ -48,7 +50,7 @@ CREATE TABLE users
 (
     user_id VARCHAR(50) PRIMARY KEY, -- 회원가입에서의 아이디가 곧 pk값이 된다.
     user_email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
     user_name VARCHAR(50) NOT NULL,
     user_birth DATE NOT NULL,
     gender VARCHAR(10) NOT NULL,
@@ -56,7 +58,7 @@ CREATE TABLE users
     is_used BOOLEAN DEFAULT TRUE NOT NULL, -- 탈퇴시 boolea은 false가 되고, dropout_at에 탈퇴시점이 적힌다.
     dropout_at TIMESTAMP NULL,
     memo VARCHAR(255) NULL,
-    role ENUM('USER', 'ADMIN') DEFAULT 'USER' NOT NULL
+    role ENUM('USER', 'ADMIN, MANAGER') DEFAULT 'USER' NOT NULL
     );
 
         
@@ -247,7 +249,6 @@ CREATE TABLE widget_details
     FOREIGN KEY (widget_id) REFERENCES widgets (widget_id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE postings
 (
     post_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -259,6 +260,7 @@ CREATE TABLE postings
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     edit_at timestamp NULL,
     is_used BOOLEAN DEFAULT TRUE NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
     deleted_reason VARCHAR(255) NULL,
     deleted_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
@@ -284,6 +286,9 @@ CREATE TABLE posting_comments
     contents TEXT NOT NULL,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     is_used BOOLEAN DEFAULT TRUE NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
+    deleted_reason VARCHAR(255) NULL,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES postings (post_id) ON DELETE CASCADE
 );

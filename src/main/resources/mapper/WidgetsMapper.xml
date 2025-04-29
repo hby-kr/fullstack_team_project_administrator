@@ -10,10 +10,9 @@
         <result column="widget_json" property="widgetJson"/>
     </resultMap>
 
-    <select id="findAllByIsUsed" resultMap="WidgetMap">
+    <select id="findAllWidgets" resultMap="WidgetMap">
         SELECT *
         FROM artu.widgets
-        WHERE is_used = #{bool}
     </select>
 
     <select id="readAll" resultType="com.artu.fullstack_team_project_administrator.dto.Widgets">
@@ -29,16 +28,13 @@
 
     <update id="update" parameterType="com.artu.fullstack_team_project_administrator.dto.Widgets">
         UPDATE widgets
-        SET user_id = #{userId},
-            widget_size = #{widgetSize},
+        SET widget_size = #{widgetSize},
             widget_theme = #{widgetTheme},
-            widget_is_used = #{widgetIsUsed},
-            widget_json = #{widgetJson},
-            is_used = #{isUsed}
+            widget_json = #{widgetJson}
         WHERE widget_id = #{widgetId}
     </update>
     
-    <delete id="delete" parameterType="String">
+    <delete id="delete" parameterType="Integer">
         DELETE
         FROM widgets
         WHERE widget_id = #{widgetId}

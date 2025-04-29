@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface WidgetsMapper {
 
-    List<Widgets> findAllByIsUsed(@Param("bool") boolean bool);
+    List<Widgets> findAllWidgets(@Param("bool") boolean bool);
 
     Widgets readAll(int id);
 

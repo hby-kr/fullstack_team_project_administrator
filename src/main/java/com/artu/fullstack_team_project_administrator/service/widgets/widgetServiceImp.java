@@ -19,7 +19,7 @@ public class widgetServiceImp implements widgetService {
 
     @Override
     public List<Widgets> findAllWidgets() {
-        return widgetsMapper.findAllByIsUsed(Boolean.TRUE);
+        return widgetsMapper.findAllWidgets(Boolean.TRUE);
     }
 
     @Override
