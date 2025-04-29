@@ -10,6 +10,7 @@ public interface EventReviewService {
     List<EventReviews> findActiveReviews();
     // 비활성화된 리뷰만 불러오기
     List<EventReviews> findInactiveReviews();
+    boolean reactivateReview(Integer reviewId);
 
     // 공연리뷰 userId로 불러오기
     List<EventReviews> findReviewsById(@Param("userId") String userId);

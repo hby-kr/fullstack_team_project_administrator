@@ -49,4 +49,9 @@ public class EventReviewController {
         eventReviewService.deactivateReviewWithReason(reviewId, deletedReason);
         return "redirect:/review/deactivate";
     }
+    @PostMapping("/reactivate")
+    public String reactivateReview(@RequestParam("reviewId") Integer reviewId){
+        eventReviewService.reactivateReview(reviewId);
+        return "redirect:/review/reported";
+    }
 }

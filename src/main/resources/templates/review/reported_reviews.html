@@ -117,6 +117,10 @@
             <input type="text" name="deletedReason" placeholder="사유 입력" required/>
             <button type="submit">비활성화</button>
           </form>
+          <form th:action="@{/review/reactivate}" method="post">
+            <input type="hidden" name="reviewId" th:value="${review.reviewId}">
+            <button type="submit">활성화</button>
+          </form>
         </td>
       </tr>
     </tbody>
