@@ -259,6 +259,7 @@ CREATE TABLE postings
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     edit_at timestamp NULL,
     is_used BOOLEAN DEFAULT TRUE NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
     deleted_reason VARCHAR(255) NULL,
     deleted_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
@@ -284,6 +285,9 @@ CREATE TABLE posting_comments
     contents TEXT NOT NULL,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     is_used BOOLEAN DEFAULT TRUE NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
+    deleted_reason VARCHAR(255) NULL,
+    deleted_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (post_id) REFERENCES postings (post_id) ON DELETE CASCADE
 );
@@ -721,7 +725,7 @@ CREATE TABLE event_reviews
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP NULL,
     deleted_reason VARCHAR(255) NULL,
-    is_reported BOOLEAN DEFAULT FALSE NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
     reported_at TIMESTAMP NULL,
     reported_reason VARCHAR(255) NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
