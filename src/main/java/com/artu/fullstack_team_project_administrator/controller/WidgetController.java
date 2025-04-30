@@ -1,15 +1,14 @@
 package com.artu.fullstack_team_project_administrator.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import com.artu.fullstack_team_project_administrator.dto.Widgets;
 import com.artu.fullstack_team_project_administrator.service.widgets.widgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,14 +24,18 @@ public class WidgetController {
 
     @GetMapping("/readAll.do")
     public String readAllWidgets(Model model) {
-        List<Widgets> widgets = widgetService.findAllWidgets();
-        model.addAttribute("widgets", widgets);
+        List<Widgets> activeWidgets = widgetService.findByDeleted(false);
+        List<Widgets> deletedWidgets = widgetService.findByDeleted(true);
+        System.out.println(activeWidgets);
+        System.out.println(deletedWidgets);
+        model.addAttribute("activeWidgets", activeWidgets);
+        model.addAttribute("deletedWidgets", deletedWidgets);
         return "widgets/readAll";
     }
 
     @PostMapping("/register.do")
     public String register(Widgets widgets) {
-        widgetService.register(widgets);
+        widgetService.save(widgets);
         return "redirect:/widgets/readAll.do";
     }
 
@@ -43,9 +46,28 @@ public class WidgetController {
     }
 
     @PostMapping("/remove.do")
-    public String remove(@RequestParam("id") int id) {
-        widgetService.remove(id);
-        return "redirect:/widgets/readAll.do";
+    @ResponseBody
+    public ResponseEntity<Void> removeWidget(@RequestParam int widgetId) {
+        try {
+            widgetService.remove(widgetId);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PostMapping("/restore.do")
+    @ResponseBody
+    public ResponseEntity<Void> restoreWidget(@RequestParam int widgetId) {
+        try {
+            widgetService.restore(widgetId);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok().build();
     }
 }
 

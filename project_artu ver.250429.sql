@@ -238,6 +238,9 @@ CREATE TABLE widgets
     widget_theme VARCHAR(20) NOT NULL DEFAULT 'Light',
     widget_json  JSON
 );
+
+ALTER TABLE widgets ADD COLUMN deleted BOOLEAN DEFAULT FALSE;
+
 CREATE TABLE widget_details
 (
     user_id        VARCHAR(50) NOT NULL,

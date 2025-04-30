@@ -9,7 +9,11 @@ public interface widgetService {
     List<Widgets> findAllWidgets();
 
     Widgets readAll(int id);
-    boolean register(Widgets widget);
+    boolean save(Widgets widget);
     boolean modify(Widgets widget);
     boolean remove(int widgetId);
+
+    boolean restore(int widgetId);
+
+    List<Widgets> findByDeleted(boolean b);
 }

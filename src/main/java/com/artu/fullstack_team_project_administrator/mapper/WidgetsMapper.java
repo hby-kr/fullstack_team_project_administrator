@@ -11,11 +11,17 @@ public interface WidgetsMapper {
 
     List<Widgets> findAllWidgets(@Param("bool") boolean bool);
 
-    Widgets readAll(int id);
+    int remove(int widgetId);
+
+    int restore(int widgetId);
 
     int insert(Widgets widgets);
 
     int update(Widgets widgets);
 
-    int delete(Integer id);
+    List<Widgets> findByDeleted(boolean deleted);
+
+    Widgets readAll(int id);
+
+    int markAsDeleted(int widgetId);
 }
