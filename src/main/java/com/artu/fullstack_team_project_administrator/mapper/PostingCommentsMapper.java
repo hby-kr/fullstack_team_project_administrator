@@ -10,10 +10,7 @@ public interface PostingCommentsMapper {
     // 댓글 조회
     List<PostingComments> findCommentsById(@Param("Id") String userId);
 
-
     int deleteByPrimaryKey(Integer commentId);
-
-    int insert(PostingComments record);
 
     int insertSelective(PostingComments record);
 

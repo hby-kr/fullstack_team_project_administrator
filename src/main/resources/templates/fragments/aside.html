@@ -45,38 +45,42 @@
 
 <!-- 사이드 메뉴 -->
 <aside class="sidebar" th:fragment="sidebar">
-  <h2> 유저 관련</h2>
+  <h2> 유저 관리</h2>
   <ul>
-    <li><a href="/user/readActiveUsers.do">유저 찾기전체보기</a></li>
-    <li><a href="/user/readInactiveUsers.do">비활성 유저 찾기</a></li>
+    <li><a href="/user/readActiveUsers.do">전체 유저 조회</a></li>
+    <li><a href="/user/readInactiveUsers.do">비활성 유저 조회</a></li>
   </ul>
 
-  <h2> 위젯 관련</h2>
+  <h2> 위젯 관리</h2>
   <ul>
-    <li><a href="/widget/read.do">위젯 전체 설정</a></li>
+    <li><a href="/widget/read.do">위젯 설정</a></li>
   </ul>
 
-  <h2> 이벤트 관련</h2>
+  <h2> 이벤트 관리</h2>
   <ul>
-    <li><a href="/event/readUnapprovedEvents.do">승인 대기 이벤트 전체보기</a></li>
-    <li><a href="/event/readApprovedEvents.do">승인 완료(활성화) 이벤트 전체보기</a></li>
-    <li><a href="/event/UnapprovedEvents.do">비활성화 이벤트 찾기</a></li>
-    <li><a href="/review/findActiveReviews.do">이벤트 리뷰</a></li>
+    <li><a href="/event/readUnapprovedEvents.do">승인 대기 이벤트</a></li>
+    <li><a href="/event/readApprovedEvents.do">승인 완료 이벤트</a></li>
+    <li><a href="/event/UnapprovedEvents.do">비활성화 이벤트</a></li>
+  </ul>
+
+  <h2> 이벤트 리뷰</h2>
+  <ul>
+    <li><a href="/review/findActiveReviews.do">공연 리뷰</a></li>
     <li><a href="/review/reported">신고된 리뷰</a></li>
     <li><a href="/review/deactivate">비활성 리뷰</a></li>
   </ul>
 
-  <h2> 포스팅 관련</h2>
+  <h2> 포스팅 관리</h2>
   <ul>
     <li><a href="/posting/reported">신고된 포스팅</a></li>
     <li><a href="/posting/deactivated">비활성 포스팅</a></li>
-    <li><a href="#">신고된 포스팅 댓글</a></li>
+    <li><a href="#">신고된 댓글</a></li>
   </ul>
 
-  <h2> 문의내역 관련</h2>
+  <h2> 문의 관리</h2>
   <ul>
-    <li><a href="#">문의~~~~~~</a></li>
-    <li><a href="#">문의~~~~~~</a></li>
+    <li><a href="#">문의 목록</a></li>
+    <li><a href="#">처리 현황</a></li>
   </ul>
 
   <ul>

@@ -83,26 +83,26 @@
     </set>
     where post_id = #{postId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.artu.fullstack_team_project_administrator.dto.Postings">
-    update postings
-    set user_id = #{userId,jdbcType=VARCHAR},
-      contents = #{contents,jdbcType=VARCHAR},
-      location_tag = #{locationTag,jdbcType=VARCHAR},
-      person_tag_id = #{personTagId,jdbcType=VARCHAR},
-      visibility_type = #{visibilityType,jdbcType=OTHER},
-      created_at = #{createdAt,jdbcType=TIMESTAMP},
-      edit_at = #{editAt,jdbcType=TIMESTAMP},
-      is_used = #{isUsed,jdbcType=BOOLEAN},
-      is_deleted = #{isDeleted,jdbcType=BOOLEAN},
-      deleted_reason = #{deletedReason,jdbcType=VARCHAR},
-      deleted_at = #{deletedAt, jdbcType=TIMESTAMP}
-    where post_id = #{postId,jdbcType=INTEGER}
-  </update>
-  <update id="activatePostings" parameterType="int">
-    UPDATE postings
-    SET is_used = TRUE,
-        deleted_reason = NULL,
-        deleted_at = NULL
-    WHERE post_id = #{postId}
-  </update>
+<!--  <update id="updateByPrimaryKey" parameterType="com.artu.fullstack_team_project_administrator.dto.Postings">-->
+<!--    update postings-->
+<!--    set user_id = #{userId,jdbcType=VARCHAR},-->
+<!--      contents = #{contents,jdbcType=VARCHAR},-->
+<!--      location_tag = #{locationTag,jdbcType=VARCHAR},-->
+<!--      person_tag_id = #{personTagId,jdbcType=VARCHAR},-->
+<!--      visibility_type = #{visibilityType,jdbcType=OTHER},-->
+<!--      created_at = #{createdAt,jdbcType=TIMESTAMP},-->
+<!--      edit_at = #{editAt,jdbcType=TIMESTAMP},-->
+<!--      is_used = #{isUsed,jdbcType=BOOLEAN},-->
+<!--      is_deleted = #{isDeleted,jdbcType=BOOLEAN},-->
+<!--      deleted_reason = #{deletedReason,jdbcType=VARCHAR},-->
+<!--      deleted_at = #{deletedAt, jdbcType=TIMESTAMP}-->
+<!--    where post_id = #{postId,jdbcType=INTEGER}-->
+<!--  </update>-->
+<!--  <update id="activatePostings" parameterType="int">-->
+<!--    UPDATE postings-->
+<!--    SET is_used = TRUE,-->
+<!--        deleted_reason = NULL,-->
+<!--        deleted_at = NULL-->
+<!--    WHERE post_id = #{postId}-->
+<!--  </update>-->
 </mapper>
