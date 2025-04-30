@@ -12,6 +12,8 @@ public interface EventReviewsMapper {
     // 활성화된 공연리뷰 조회
     List<EventReviews> findAllByIsUsed(@Param("bool") boolean bool);
 
+    List<EventReviews> findInactiveReviews(@Param("bool") boolean bool);
+
     // 공연리뷰 userId로 조회
     List<EventReviews> findReviewsById(@Param("userId") String userId);
     // 공연리뷰 삭제 (논리 삭제 : is_used false 로 변경)

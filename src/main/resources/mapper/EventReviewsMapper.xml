@@ -59,6 +59,12 @@
       AND user_id=#{userId}
     </if>
   </select>
+  <select id="findInactiveReviews" resultMap="BaseResultMap">
+    SELECT * FROM event_reviews
+    WHERE is_used = false
+    AND is_deleted = true
+    ORDER BY deleted_at DESC
+  </select>
   <delete id="delete" parameterType="java.lang.Integer">
     delete from event_reviews
     where review_id = #{reviewId,jdbcType=INTEGER}

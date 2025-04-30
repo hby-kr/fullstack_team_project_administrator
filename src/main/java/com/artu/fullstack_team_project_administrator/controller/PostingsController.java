@@ -3,7 +3,6 @@ package com.artu.fullstack_team_project_administrator.controller;
 import com.artu.fullstack_team_project_administrator.dto.Postings;
 import com.artu.fullstack_team_project_administrator.service.postings.PostingsService;
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,16 +20,39 @@ public class PostingsController {
 
     private final PostingsService postingsService;
 
-    @GetMapping("/deactivate")
-    public String showDeactivatedPosts(Model model) {
-        List<Postings> posts = postingsService.getDeactivatedPosts();
-        model.addAttribute("posts", posts);
-        return "posting/deactivated_postings";
+    // 활성화된 게시글 조회 (사용 중)
+    @GetMapping("/active")
+    public String showActivePosts(Model model) {
+        model.addAttribute("posts", postingsService.findActivePosts());
+        return "posting/active"; // ← 필요 시 뷰 생성
     }
 
-    @PostMapping("/activate")
-    public String activatePostings(@RequestParam("postId") Integer postId){
-        postingsService.activatePostings(postId);
-        return "redirect:/posting/deactivate";
+    // 신고된 게시글 조회 (조치 대기 중)
+    @GetMapping("/reported")
+    public String showReportedPosts(Model model) {
+        model.addAttribute("posts", postingsService.findReportedPosts());
+        return "posting/reported";
+    }
+
+    // 비활성화된 게시글 조회 (조치 완료)
+    @GetMapping("/deactivated")
+    public String showDeactivatedPosts(Model model) {
+        model.addAttribute("posts", postingsService.findDeactivatedPosts());
+        return "posting/deactivated";
+    }
+
+    // 게시글 비활성화 처리
+    @PostMapping("/deactivate")
+    public String deactivatePost(@RequestParam("postId") Integer postId,
+                                 @RequestParam("deletedReason") String deletedReason) {
+        postingsService.deactivatePost(postId, deletedReason);
+        return "redirect:/posting/deactivated";
+    }
+
+    // 잘못된 신고 → 게시글 복구 처리
+    @PostMapping("/reactivate")
+    public String reactivatePost(@RequestParam("postId") Integer postId) {
+        postingsService.reactivatePost(postId);
+        return "redirect:/posting/reported";
     }
 }

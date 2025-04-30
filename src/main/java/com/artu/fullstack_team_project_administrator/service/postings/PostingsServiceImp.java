@@ -6,36 +6,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class PostingsServiceImp implements PostingsService {
 
     @Autowired
-    PostingsMapper postingsMapper;
+    private PostingsMapper postingsMapper;
+
+    @Override
+    public List<Postings> findActivePosts() {
+        return postingsMapper.findAllByIsUsed(true);
+    }
+
+    @Override
+    public List<Postings> findReportedPosts() {
+        return postingsMapper.findReportedPosts();
+    }
 
     @Override
     public List<Postings> findDeactivatedPosts() {
-        return (postingsMapper.findDeactivatedPosts());
+        return postingsMapper.findDeactivatedPosts();
     }
 
     @Override
-    public boolean activatePostings(Integer postId) {
-        return postingsMapper.activatePostings(postId) > 0;
+    public Postings selectByPostId(Integer postId) {
+        return postingsMapper.selectByPrimaryKey(postId);
     }
 
     @Override
-    public boolean deactivatePostings(Integer postId, String reason, LocalDate deletedAt) {
+    public boolean deactivatePost(Integer postId, String deletedReason) {
         Postings post = new Postings();
         post.setPostId(postId);
         post.setIsUsed(false);
-        post.setDeletedReason(reason);
-        post.setDeletedAt(java.sql.Date.valueOf(deletedAt));
+        post.setIsDeleted(true);
+        post.setDeletedReason(deletedReason);
+        post.setDeletedAt(LocalDate.now());
         return postingsMapper.updateByPrimaryKeySelective(post) > 0;
     }
 
     @Override
-    public List<Postings> getDeactivatedPosts() {
-        return postingsMapper.findDeactivatedPosts();
+    public boolean reactivatePost(Integer postId) {
+        Postings post = new Postings();
+        post.setPostId(postId);
+        post.setIsUsed(true);
+        post.setIsDeleted(false);
+        return postingsMapper.updateByPrimaryKeySelective(post) > 0;
     }
 }

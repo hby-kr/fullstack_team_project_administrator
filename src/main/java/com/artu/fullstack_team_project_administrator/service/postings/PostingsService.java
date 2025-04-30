@@ -7,12 +7,20 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PostingsService{
+    List<Postings> findActivePosts();
+
+    // 신고된 게시글 조회 (is_used = false, is_deleted = false)
+    List<Postings> findReportedPosts();
+
+    // 비활성화된 게시글 조회 (is_used = false, is_deleted = true)
     List<Postings> findDeactivatedPosts();
 
-    boolean activatePostings(Integer postId);
+    // 게시글 단건 조회
+    Postings selectByPostId(Integer postId);
 
-    boolean deactivatePostings(Integer postId, String reason, LocalDate deletedAt);
+    // 신고된 게시글을 비활성화 처리 (is_used = false, is_deleted = true)
+    boolean deactivatePost(Integer postId, String deletedReason);
 
-
-    List<Postings> getDeactivatedPosts();
+    // 잘못 신고된 게시글 복원 (is_used = true, is_deleted = false)
+    boolean reactivatePost(Integer postId);
 }

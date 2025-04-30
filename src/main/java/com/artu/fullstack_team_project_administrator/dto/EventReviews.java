@@ -25,7 +25,4 @@ public class EventReviews implements Serializable {
     private LocalDate reportedAt;
     private LocalDate deletedAt;
     private String deletedReason;
-
-    public void setDeleted_reason(String s) {
-    }
 }

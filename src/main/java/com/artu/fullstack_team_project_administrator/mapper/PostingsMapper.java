@@ -10,20 +10,18 @@ import java.util.List;
 public interface PostingsMapper {
 
 
-    // 신고된 게시글 조회
-    List<Postings> findDeactivatedPosts();
+    // 활성화된 게시글
+    List<Postings> findAllByIsUsed(@Param("bool") boolean bool);
 
-    int activatePostings(@Param("postId") Integer postId); // 잘못 신고된 게시글 활성화
+    // 신고된 게시글
+    List<Postings> findReportedPosts(); // is_used = false, is_deleted = false
 
-//    int deleteByPrimaryKey(Integer postId);
-//
-//    int insert(Postings record);
-//
-//    int insertSelective(Postings record);
+    // 비활성화된 게시글
+    List<Postings> findDeactivatedPosts(); // is_used = false, is_deleted = true
 
+    // 게시글 1개 조회
     Postings selectByPrimaryKey(Integer postId);
 
-    int updateByPrimaryKeySelective(Postings record);
-
-    int updateByPrimaryKey(Postings record);
+    // 게시글 상태 수정
+    int updateByPrimaryKeySelective(Postings post);
 }

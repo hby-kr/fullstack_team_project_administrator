@@ -21,7 +21,7 @@ public class EventReviewServiceImp implements EventReviewService {
 
     @Override
     public List<EventReviews> findInactiveReviews() {
-        return eventReviewsMapper.findAllByIsUsed(false);
+        return eventReviewsMapper.findInactiveReviews(true);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class EventReviewServiceImp implements EventReviewService {
     public boolean deactivateReviewWithReason(Integer reviewId,String deletedReason) {
         EventReviews eventReviews = new EventReviews();
         eventReviews.setReviewId(reviewId);
-        //eventReviews.setIsUsed(false);
+        eventReviews.setIsUsed(false);
         eventReviews.setIsDeleted(true);
         eventReviews.setDeletedReason(deletedReason);
         eventReviews.setDeletedAt(LocalDate.now());

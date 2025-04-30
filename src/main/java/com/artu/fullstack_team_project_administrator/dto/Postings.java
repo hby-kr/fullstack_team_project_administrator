@@ -1,113 +1,30 @@
 package com.artu.fullstack_team_project_administrator.dto;
 
+import lombok.Data;
+
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * postings
  */
+@Data
 public class Postings implements Serializable {
-    private Integer postId;
-
-    private String userId;
-
-    private String contents;
-
-    private String locationTag;
-
-    private String personTagId;
-
-    private Object visibilityType;
-
-    private Date createdAt;
-
-    private Date editAt;
-
-    private Boolean isUsed;
-
-    private String deletedReason;
-
-    private Date deletedAt;
-
     private static final long serialVersionUID = 1L;
 
-    public Integer getPostId() {
-        return postId;
-    }
+    private Integer postId;
+    private String userId;
+    private String contents;
+    private String locationTag;
+    private String personTagId;
+    private Object visibilityType;
+    private LocalDate createdAt;
+    private Date editAt;
+    private Boolean isUsed;
+    private Boolean isDeleted;
+    private String deletedReason;
+    private LocalDate deletedAt;
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public String getLocationTag() {
-        return locationTag;
-    }
-
-    public void setLocationTag(String locationTag) {
-        this.locationTag = locationTag;
-    }
-
-    public String getPersonTagId() {
-        return personTagId;
-    }
-
-    public void setPersonTagId(String personTagId) {
-        this.personTagId = personTagId;
-    }
-
-    public Object getVisibilityType() {
-        return visibilityType;
-    }
-
-    public void setVisibilityType(Object visibilityType) {
-        this.visibilityType = visibilityType;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getEditAt() {
-        return editAt;
-    }
-
-    public void setEditAt(Date editAt) {
-        this.editAt = editAt;
-    }
-
-    public Boolean getIsUsed() {
-        return isUsed;
-    }
-
-    public void setIsUsed(Boolean isUsed) {
-        this.isUsed = isUsed;
-    }
-
-    public String getDeletedReason() {return deletedReason;}
-
-    public void setDeletedReason(String deletedReason) {this.deletedReason = deletedReason;}
-
-    public Date getDeletedAt() {return deletedAt;}
-
-    public void setDeletedAt(Date deletedAt) {this.deletedAt = deletedAt;}
 }
