@@ -8,39 +8,49 @@
         <result column="widget_size" property="widgetSize"/>
         <result column="widget_theme" property="widgetTheme"/>
         <result column="widget_json" property="widgetJson"/>
+        <result column="deleted" property="deleted"/>
     </resultMap>
 
-    <select id="findAllByIsUsed" resultMap="WidgetMap">
+    <select id="findAllWidgets" resultMap="WidgetMap">
         SELECT *
         FROM artu.widgets
-        WHERE is_used = #{bool}
+        WHERE deleted = false ORDER BY widget_id
     </select>
 
-    <select id="readAll" resultType="com.artu.fullstack_team_project_administrator.dto.Widgets">
+    <select id="readAll" resultMap="WidgetMap">
+        SELECT *
+        FROM artu.widgets
+        WHERE widget_id = #{widgetId}
+    </select>
+
+    <select id="findByDeleted" parameterType="boolean" resultMap="WidgetMap">
+        SELECT * FROM widgets WHERE deleted = #{deleted}
+    </select>
+    <select id="markAsDeleted" parameterType="int" resultType="java.lang.Integer">
         SELECT *
         FROM artu.widgets
         WHERE widget_id = #{widgetId}
     </select>
 
     <insert id="insert" parameterType="com.artu.fullstack_team_project_administrator.dto.Widgets">
-        INSERT INTO widgets (widget_id, widget_size, widget_theme, widget_json)
-        VALUES ()
+        INSERT INTO widgets (widget_id, widget_size, widget_theme, widget_json, deleted)
+        VALUES (#{widgetId}, #{widgetSize}, #{widgetTheme}, #{widgetJson}, false)
     </insert>
 
     <update id="update" parameterType="com.artu.fullstack_team_project_administrator.dto.Widgets">
         UPDATE widgets
-        SET user_id = #{userId},
-            widget_size = #{widgetSize},
+        SET widget_size = #{widgetSize},
             widget_theme = #{widgetTheme},
-            widget_is_used = #{widgetIsUsed},
-            widget_json = #{widgetJson},
-            is_used = #{isUsed}
+            widget_json = #{widgetJson}
         WHERE widget_id = #{widgetId}
     </update>
     
-    <delete id="delete" parameterType="String">
-        DELETE
-        FROM widgets
-        WHERE widget_id = #{widgetId}
-    </delete>
+    <update id="remove" parameterType="int">
+        UPDATE widgets SET deleted = true WHERE widget_id = #{widgetId}
+    </update>
+
+    <update id="restore" parameterType="int">
+        UPDATE widgets SET deleted = false WHERE widget_id = #{widgetId}
+    </update>
+
 </mapper>

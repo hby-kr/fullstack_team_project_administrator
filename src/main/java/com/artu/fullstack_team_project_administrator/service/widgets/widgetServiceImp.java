@@ -19,7 +19,7 @@ public class widgetServiceImp implements widgetService {
 
     @Override
     public List<Widgets> findAllWidgets() {
-        return widgetsMapper.findAllByIsUsed(Boolean.TRUE);
+        return widgetsMapper.findAllWidgets(Boolean.TRUE);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class widgetServiceImp implements widgetService {
     }
 
     @Override
-    public boolean register(Widgets widget) {
+    public boolean save(Widgets widget) {
         return widgetsMapper.insert(widget) > 0 ;
     }
 
@@ -39,6 +39,16 @@ public class widgetServiceImp implements widgetService {
 
     @Override
     public boolean remove(int widgetId) {
-        return widgetsMapper.delete(widgetId) > 0;
+        return widgetsMapper.remove(widgetId) > 0;
+    }
+
+    @Override
+    public boolean restore(int widgetId) {
+        return widgetsMapper.restore(widgetId) > 0;
+    }
+
+    @Override
+    public List<Widgets> findByDeleted(boolean deleted) {
+        return widgetsMapper.findByDeleted(deleted);
     }
 }
