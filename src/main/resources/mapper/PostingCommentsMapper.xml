@@ -8,9 +8,12 @@
     <result column="contents" jdbcType="VARCHAR" property="contents" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="is_used" jdbcType="BOOLEAN" property="isUsed" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+    <result column="deleted_reason" jdbcType="VARCHAR" property="deletedReason" />
+    <result column="deleted_at" jdbcType="TIMESTAMP" property="deletedAt" />
   </resultMap>
   <sql id="Base_Column_List">
-    comment_id, user_id, post_id, contents, created_at, is_used
+    comment_id, user_id, post_id, contents, created_at, is_used, is_deleted, deleted_reason, deleted_at
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -18,47 +21,16 @@
     from posting_comments
     where comment_id = #{commentId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from posting_comments
-    where comment_id = #{commentId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insertSelective" keyColumn="comment_id" keyProperty="commentId" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments" useGeneratedKeys="true">
-    insert into posting_comments
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="postId != null">
-        post_id,
-      </if>
-      <if test="contents != null">
-        contents,
-      </if>
-      <if test="createdAt != null">
-        created_at,
-      </if>
-      <if test="isUsed != null">
-        is_used,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="postId != null">
-        #{postId,jdbcType=INTEGER},
-      </if>
-      <if test="contents != null">
-        #{contents,jdbcType=VARCHAR},
-      </if>
-      <if test="createdAt != null">
-        #{createdAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isUsed != null">
-        #{isUsed,jdbcType=BOOLEAN},
-      </if>
-    </trim>
-  </insert>
+  <select id="findReportedComments" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM posting_comments
+    WHERE is_used = false AND is_deleted = false
+  </select>
+  <select id="findDeletedComments" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    FROM posting_comments
+    WHERE is_used = false AND is_deleted = true
+  </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.artu.fullstack_team_project_administrator.dto.PostingComments">
     update posting_comments
     <set>
@@ -77,6 +49,15 @@
       <if test="isUsed != null">
         is_used = #{isUsed,jdbcType=BOOLEAN},
       </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="deletedReason != null">
+        deleted_reason = #{deletedReason,jdbcType=VARCHAR},
+      </if>
+      <if test="deletedAt != null">
+        deleted_at = #{deletedAt,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where comment_id = #{commentId,jdbcType=INTEGER}
   </update>
@@ -88,5 +69,37 @@
       created_at = #{createdAt,jdbcType=TIMESTAMP},
       is_used = #{isUsed,jdbcType=BOOLEAN}
     where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="deactivateCommentsByPostId">
+    UPDATE posting_comments
+    SET is_used = false,
+        is_deleted = true,
+        deleted_at = #{deletedAt},
+        deleted_reason = #{deletedReason}
+    WHERE post_id = #{postId}
+  </update>
+  <update id="restoreCommentsByPostId">
+    UPDATE posting_comments
+    SET is_used = true,
+        is_deleted = false,
+        deleted_at = NULL,
+        deleted_reason = NULL
+    WHERE post_id = #{postId}
+  </update>
+  <update id="reactivateComment">
+    UPDATE posting_comments
+    SET is_used = true,
+        is_deleted = false,
+        deleted_reason = NULL,
+        deleted_at = NULL
+    WHERE comment_id = #{commentId}
+  </update>
+  <update id="deactivateComment">
+    UPDATE posting_comments
+    SET is_used = false,
+        is_deleted = true,
+        deleted_reason = #{deletedReason},
+        deleted_at = #{deletedAt}
+    WHERE comment_id = #{commentId}
   </update>
 </mapper>

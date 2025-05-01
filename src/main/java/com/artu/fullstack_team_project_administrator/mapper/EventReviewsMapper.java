@@ -31,5 +31,6 @@ public interface EventReviewsMapper {
     List<EventReviews> findReportedReviews();
 
     // 공연리뷰 공연ID랑 사용자ID로 조회
-    List<EventReviews> findByEventIdAndUserId(@Param("eventId") Integer eventId, @Param("userId") String userId);
+    List<EventReviews> findByEventIdAndUserId(@Param("eventId") Integer eventId,
+                                              @Param("userId") String userId);
 }

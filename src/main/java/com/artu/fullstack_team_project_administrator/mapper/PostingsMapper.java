@@ -14,7 +14,7 @@ public interface PostingsMapper {
     List<Postings> findAllByIsUsed(@Param("bool") boolean bool);
 
     // 신고된 게시글
-    List<Postings> findReportedPosts(); // is_used = false, is_deleted = false
+    List<Postings> findReportedPosts();
 
     // 비활성화된 게시글
     List<Postings> findDeactivatedPosts(); // is_used = false, is_deleted = true

@@ -36,7 +36,7 @@ public class PostingsServiceImp implements PostingsService {
     }
 
     @Override
-    public boolean deactivatePost(Integer postId, String deletedReason) {
+    public boolean deactivatePost(Integer postId, String deletedReason, LocalDate deletedAt) {
         Postings post = new Postings();
         post.setPostId(postId);
         post.setIsUsed(false);
