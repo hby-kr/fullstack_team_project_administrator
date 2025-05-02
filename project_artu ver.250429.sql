@@ -730,8 +730,6 @@ CREATE TABLE event_reviews
     deleted_at TIMESTAMP NULL,
     deleted_reason VARCHAR(255) NULL,
     is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
-    reported_at TIMESTAMP NULL,
-    reported_reason VARCHAR(255) NULL,
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (event_id) REFERENCES events (event_id)
 );

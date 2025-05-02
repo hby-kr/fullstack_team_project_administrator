@@ -110,10 +110,9 @@
             <th>별점</th>
             <th>리뷰 내용</th>
             <th>작성일</th>
-<!--        <th>상세</th>     -->
+
         </tr>
         </thead>
-
         <tbody>
         <tr th:each="review : ${reviews}">
             <td th:text="${review.reviewId}"></td>

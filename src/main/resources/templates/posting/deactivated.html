@@ -102,14 +102,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="post : ${posts}">
-      <td th:text="${#temporals.format(post.createdAt, 'yy년MM월dd일')}"></td>
-      <td th:text="${post.postId}"></td>
-      <td th:text="${post.userId}"></td>
-      <td th:text="${post.contents}"></td>
-      <td th:text="${post.deletedReason}"></td>
-      <td th:text="${#temporals.format(post.deletedAt, 'yy년MM월dd일')}"></td>
-    </tr>
+      <tr th:each="post : ${posts}">
+        <td th:text="${#temporals.format(post.createdAt, 'yy년MM월dd일')}"></td>
+        <td th:text="${post.postId}"></td>
+        <td th:text="${post.userId}"></td>
+        <td th:text="${post.contents}"></td>
+        <td th:text="${post.deletedReason}"></td>
+        <td th:text="${#temporals.format(post.deletedAt, 'yy년MM월dd일')}"></td>
+      </tr>
     </tbody>
   </table>
 </div>
