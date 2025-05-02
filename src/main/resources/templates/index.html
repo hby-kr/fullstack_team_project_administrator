@@ -1,30 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/template}"
+>
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
-    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<div class="container">
-    <!-- 헤더 -->
-    <header class="header">
-        <h1>관리자 페이지</h1>
-    </header>
-
-    <!-- 사이드 메뉴 -->
-    <div th:replace="~{fragments/aside :: sidebar}"></div>
-
-    <!-- 본문 -->
-    <main class="main-content">
+    <main layout:fragment="content">
         <h2>북마크 처럼</h2>
         <p>여기에 관리자가 검색창 놓고, 필요한 기능들을 블록으로 만들면 보기 편하지 않을까</p>
     </main>
 
-    <!-- 풋터 -->
-    <footer class="footer">
-        <p> ArtU 관리자 페이지</p>
-    </footer>
-</div>
 </body>
 </html>

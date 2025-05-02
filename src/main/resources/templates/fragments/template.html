@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>ARTU 관리자 페이지</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/styles.css">
+
+</head>
+<body>
+<div class="container">
+  <!-- 헤더 -->
+  <header class="header">
+    <h1>관리자 페이지</h1>
+  </header>
+
+  <!-- 사이드 메뉴 -->
+  <div th:replace="~{fragments/aside :: sidebar}"></div>
+
+  <!-- 본문 -->
+  <main class="main-content" layout:fragment="content">
+  </main>
+
+<!-- 풋터 -->
+  <footer class="footer">
+    <p> ArtU 관리자 페이지</p>
+  </footer>
+
+</div>
+</body>
+</html>
