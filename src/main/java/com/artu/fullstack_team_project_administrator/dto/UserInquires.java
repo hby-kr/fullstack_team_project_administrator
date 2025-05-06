@@ -3,6 +3,7 @@ package com.artu.fullstack_team_project_administrator.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -14,15 +15,21 @@ public class UserInquires implements Serializable {
 
     private Integer inquireId;
     private String userId;
-    private Object inquireCategory;
+    private InquireCategory inquireCategory;
     private Integer paymentId;
     private String title;
     private String contents;
     private String inquiryImgUrl;
-    private Date createdAt;
-    private Object inquiryState;
-    private Date stateUpdatedAt;
+    private LocalDateTime createdAt;
+    private InquiryState inquiryState;
+    private LocalDateTime stateUpdatedAt;
     private Boolean isUsed;
 
+    public enum InquireCategory {
+        계정, 결제, 데이터등록, 기타
+    }
 
+    public enum InquiryState {
+        Pending, Completed
+    }
 }
