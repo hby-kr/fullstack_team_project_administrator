@@ -56,6 +56,24 @@
     and inquiry_state = #{inquiryState}
     order by created_at desc
   </select>
+  <select id="findWithFilters" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user_inquires
+    <where>
+      is_used = true
+      <if test="userId != null and userId != ''">
+        AND user_id = #{userId}
+      </if>
+      <if test="category != null and category != ''">
+        AND inquire_category = #{category}
+      </if>
+      <if test="state != null and state != ''">
+        AND inquiry_state = #{state}
+      </if>
+    </where>
+    ORDER BY created_at DESC
+  </select>
   <update id="updateState" parameterType="map">
     update user_inquires
     set inquiry_state = #{inquiryState},

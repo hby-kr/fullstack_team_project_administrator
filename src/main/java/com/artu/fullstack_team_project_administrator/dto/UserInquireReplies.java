@@ -3,6 +3,7 @@ package com.artu.fullstack_team_project_administrator.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -18,7 +19,7 @@ public class UserInquireReplies implements Serializable {
 
     private String replyContents;
 
-    private Date repliedAt;
+    private LocalDateTime repliedAt;
 
     private String counselorId;
 

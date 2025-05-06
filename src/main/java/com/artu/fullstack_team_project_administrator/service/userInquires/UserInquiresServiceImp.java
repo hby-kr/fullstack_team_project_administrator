@@ -38,6 +38,11 @@ public class UserInquiresServiceImp implements UserInquiresService {
     }
 
     @Override
+    public List<UserInquires> findWithFilters(String userId, String category, String state) {
+        return userInquiresMapper.findWithFilters(userId, category, state);
+    }
+
+    @Override
     public void updateState(Integer inquireId, String inquiryState) {
         userInquiresMapper.updateState(inquireId, inquiryState);
     }

@@ -17,6 +17,8 @@ public interface UserInquiresService {
 
     List<UserInquires> findByUserId(String userId);
 
+    List<UserInquires> findWithFilters(String userId, String category, String state);
+
     void updateState(Integer inquireId, String inquiryState);
 
     void deactivateInquire(Integer inquireId);

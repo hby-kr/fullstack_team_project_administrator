@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/template}">
+<head>
+  <meta charset="UTF-8">
+  <title>문의 상세</title>
+</head>
+<body>
+<main layout:fragment="content">
+  <div class="container mt-5">
+    <h2 class="mb-4">문의 상세</h2>
+
+    <!-- ✅ 문의 정보 -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title" th:text="${inquire.title}">문의 제목</h5>
+        <p class="card-text" th:text="${inquire.contents}">문의 내용</p>
+        <hr>
+        <p><strong>카테고리:</strong> <span th:text="${inquire.inquireCategory}">결제</span></p>
+        <p><strong>문의일:</strong> <span th:text="${#temporals.format(inquire.createdAt, 'yyyy-MM-dd HH:mm')}"></span></p>
+        <p><strong>작성자:</strong> <span th:text="${inquire.userId}">user123</span></p>
+        <p><strong>상태:</strong> <span th:text="${inquire.inquiryState}">Pending</span></p>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <h5>관리자 답변</h5>
+      <div th:if="${reply != null}">
+        <div class="border p-3 bg-light rounded">
+          <p th:text="${reply.replyContents}">답변 내용</p>
+          <small class="text-muted" th:text="${#temporals.format(reply.repliedAt, 'yyyy-MM-dd HH:mm')}">2025-05-06</small>
+        </div>
+      </div>
+      <div th:if="${reply == null}">
+        <p class="text-muted">아직 답변이 작성되지 않았습니다.</p>
+      </div>
+    </div>
+
+    <div th:if="${reply == null}">
+      <form th:action="@{/inquireReplies/write}" method="post">
+        <input type="hidden" name="inquireId" th:value="${inquire.inquireId}" />
+        <input type="hidden" name="counselorId" value="admin01" /> <!-- 나중에 로그인한 관리자 ID로 교체 -->
+        <div class="mb-3">
+          <label for="replyContents" class="form-label">답변 작성</label>
+          <textarea name="replyContents" id="replyContents" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">답변 등록</button>
+      </form>
+    </div>
+  </div>
+</main>
+</body>
+</html>

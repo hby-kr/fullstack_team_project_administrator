@@ -18,6 +18,13 @@
     from user_inquire_replies
     where reply_id = #{replyId,jdbcType=INTEGER}
   </select>
+  <select id="findByInquireId" parameterType="int" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user_inquire_replies
+    WHERE inquire_id = #{inquireId}
+    AND is_used = true
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user_inquire_replies
     where reply_id = #{replyId,jdbcType=INTEGER}
@@ -94,5 +101,11 @@
       counselor_id = #{counselorId,jdbcType=VARCHAR},
       is_used = #{isUsed,jdbcType=BOOLEAN}
     where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="respondToInquiry">
+    UPDATE user_inquire_replies
+    SET reply_contents = #{replyContents},
+        replied_at = NOW()
+    WHERE inquire_id = #{inquireId}
   </update>
 </mapper>

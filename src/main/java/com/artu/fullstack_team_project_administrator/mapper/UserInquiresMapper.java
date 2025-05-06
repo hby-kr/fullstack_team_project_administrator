@@ -23,6 +23,8 @@ public interface UserInquiresMapper {
     // 상태 조회
     List<UserInquires> findByState(@Param("inquiryState") String inquiryState);
 
+    List<UserInquires> findWithFilters(String userId, String category, String state);
+
     // 상태 업데이트
     int updateState(@Param("inquireId") Integer inquireId,
                     @Param("inquiryState") String inquiryState);
