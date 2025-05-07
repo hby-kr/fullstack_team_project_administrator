@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/template}">
 <head>
     <meta charset="UTF-8">
     <title>유저 상세정보</title>
@@ -8,7 +11,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #121212; /* 어두운 배경 */
+            background-color: #ffffff; /* 어두운 배경 */
             color: #fff; /* 텍스트 색상: 흰색 */
             display: flex;
         }
@@ -115,14 +118,16 @@
 
 <!-- 사이드 메뉴 -->
 <div th:replace="~{fragments/aside :: sidebar}"></div>
-
-<div class="container">
-<h1>회원 상세 정보</h1>
-    <table>
+<main layout:fragment="content">
+    <div class="container my-4">
+<h2>회원 상세 정보</h2>
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
         <tr>
             <th>항목</th>
             <th>정보</th>
         </tr>
+            </thead>
         <tr>
             <td>사용자 ID</td>
             <td th:text="${user.userId}"></td>
@@ -214,6 +219,6 @@
 
 </script>
 
-
+</main>
 </body>
 </html>

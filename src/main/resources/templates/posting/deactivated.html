@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/template}">
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
@@ -88,19 +91,20 @@
 <body>
 <div th:replace="~{fragments/aside :: sidebar}"></div>
 
-<div class="container">
-  <h1>비활성화된 게시글 목록</h1>
-  <table>
-    <thead>
-    <tr>
-      <th>작성일</th>
-      <th>게시글 ID</th>
-      <th>사용자 ID</th>
-      <th>내용</th>
-      <th>삭제 사유</th>
-      <th>삭제 날짜</th>
-    </tr>
-    </thead>
+<main layout:fragment="content">
+  <div class="container my-4">
+  <h2>비활성화된 게시글 목록</h2>
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>작성일</th>
+          <th>게시글 ID</th>
+          <th>사용자 ID</th>
+          <th>내용</th>
+          <th>삭제 사유</th>
+          <th>삭제 날짜</th>
+        </tr>
+      </thead>
     <tbody>
       <tr th:each="post : ${posts}">
         <td th:text="${#temporals.format(post.createdAt, 'yy년MM월dd일')}"></td>
@@ -113,5 +117,6 @@
     </tbody>
   </table>
 </div>
+</main>
 </body>
 </html>

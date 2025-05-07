@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/template}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +12,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #121212;  /* 어두운 배경 */
+            background-color: #ffffff;  /* 어두운 배경 */
             color: #fff;  /* 텍스트 색상: 흰색 */
             display: flex;
         }
@@ -90,18 +93,22 @@
 
 <!-- 사이드 메뉴 -->
 <div th:replace="~{fragments/aside :: sidebar}"></div>
+<main layout:fragment="content">
+    <div class="container my-4">
+            <h2>활성 사용자 리스트</h2>
+
+        <form class="row g-3 mb-4" action="/user/search.do" method="GET">
+            <div class="col-md-9">
+                <input type="text" id="search" name="search" class="form-control" placeholder="회원 이름 또는 이메일 검색" required>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">검색</button>
+            </div>
+        </form>
 
 
-<form action="/user/search.do" method="GET">
-    <label for="search">회원 이름 또는 이메일 검색:</label>
-    <input type="text" id="search" name="search" required>
-    <button type="submit">검색</button>
-</form>
-
-<div class="container">
-    <h1>활성 사용자 리스트</h1>
-    <table>
-        <thead>
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
         <tr>
             <th>사용자 ID</th>
             <th>이메일</th>
@@ -131,6 +138,6 @@
         </tbody>
     </table>
 </div>
-
+</main>
 </body>
 </html>
